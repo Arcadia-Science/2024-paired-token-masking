@@ -1,11 +1,18 @@
 [project]
-name = "TODO: Tool name"
+name = "esm-paired-masked-tokens"
 description = "TODO: Tool description"
 version = "0.0.0"
 readme = "README.md"
 requires-python = ">=3.12"
 license = { file = "LICENSE" }
 
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["src"]
 
 [tool.ruff]
 # The directories to consider when resolving first- vs. third-party imports

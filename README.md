@@ -8,11 +8,12 @@ TODO: Briefly describe the core analyses performed in the repository and the mot
 
 ## Installation and Setup
 
-This repository uses conda to manage software environments and installations. You can find operating system-specific instructions for installing miniconda [here](https://docs.conda.io/projects/miniconda/en/latest/). After installing conda and [mamba](https://mamba.readthedocs.io/en/latest/), run the following command to create the pipeline run environment.
+This repository uses conda to manage software environments and installations. You can find operating system-specific instructions for installing miniconda [here](https://docs.conda.io/projects/miniconda/en/latest/). After installing conda and [mamba](https://mamba.readthedocs.io/en/latest/), run the following command to create the environment.
 
 ```{bash}
-mamba env create -n esm-paired-masked-tokens --file envs/dev.yml
+mamba env create -n esm-paired-masked-tokens --file env.yml
 conda activate esm-paired-masked-tokens
+pip install -e .
 ```
 
 <details><summary>Developer Notes (click to expand/collapse)</summary>
