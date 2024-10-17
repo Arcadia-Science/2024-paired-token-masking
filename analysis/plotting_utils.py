@@ -1,45 +1,25 @@
 import numpy as np
-import pandas as pd
 import plotly.graph_objects as go
 
 
-def get_js_div_matrix(df: pd.DataFrame) -> np.ndarray:
-    indices = sorted(set(df["position_i"]).union(df["position_j"]))
-    matrix = pd.DataFrame(index=indices, columns=indices)  # type: ignore
-
-    for _, row in df.iterrows():
-        matrix.at[row.position_i, row.position_j] = row.js_div_avg
-        matrix.at[row.position_j, row.position_i] = row.js_div_avg
-
-    np.fill_diagonal(matrix.values, np.nan)
-
-    matrix_values = matrix.to_numpy()
-    return matrix_values.astype(np.float32)
-
-
-def visualize_js_div_matrix(df: pd.DataFrame, log: bool, epsilon=1e-4, title="", zmax: float = 0.2):
+def visualize_js_div_matrix(
+    matrix_values: np.ndarray, title="", js_div_zmax: float = 0.2
+):
     # Compute the matrix values
-    matrix_values = get_js_div_matrix(df)
     size = matrix_values.shape[0]
     indices = np.arange(size)
-
-    # Compute z_values for the heatmap
-    if log:
-        z_values = np.log(matrix_values + epsilon)
-    else:
-        z_values = matrix_values
 
     # Create the figure and add the heatmap trace
     fig = go.Figure()
     heatmap_trace = go.Heatmap(
-        z=np.swapaxes(z_values, 0, 1),
+        z=np.swapaxes(matrix_values, 0, 1),
         x=indices,
         y=indices,
         colorscale="Aggrnyl",
         colorbar=dict(title="JS-divergence"),
         showscale=True,
         zauto=False,
-        zmax=zmax,
+        zmax=js_div_zmax,
         zsmooth=False,
     )
     fig.add_trace(heatmap_trace)
