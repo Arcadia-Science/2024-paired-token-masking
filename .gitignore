@@ -1,14 +1,6 @@
 # packages installed in editable mode
 envs/src/**
 
-# Snakemake-related folders and files
-.snakemake/
-/input/
-/output/
-/demo/output/
-/demo/input/
-/logs
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

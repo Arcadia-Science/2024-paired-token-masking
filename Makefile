@@ -1,4 +1,4 @@
-DOCS_DIR := ./docs
+PUB_DIR := ./pub
 
 .PHONY: lint
 lint:
@@ -22,7 +22,7 @@ pre-commit:
 test:
 	pytest -v .
 
-.PHONY: docs
-docs:
-	$(MAKE) -C docs/ clean-and-build-html
-	$(MAKE) -C docs/ view-html
+.PHONY: pub
+pub:
+	$(MAKE) -C pub/ clean-and-build-html
+	$(MAKE) -C pub/ view-html

@@ -18,9 +18,9 @@ sys.path.insert(0, os.path.abspath("../"))
 
 # -- Project information -----------------------------------------------------
 
-project = "[PACKAGE-NAME]"
+project = "Paired Token Masking Analysis"
 # copyright = "2024, Arcadia Science"
-author = "[FIRST] [LAST]"
+author = "Evan Kiefl"
 
 # -- General configuration ---------------------------------------------------
 
@@ -29,6 +29,7 @@ author = "[FIRST] [LAST]"
 # ones.
 extensions = [
     "nbsphinx",
+    "nbsphinx_link",
     "sphinx.ext.napoleon",
     "sphinx.ext.mathjax",
     "sphinx_copybutton",
@@ -102,12 +103,13 @@ myst_enable_extensions = ["colon_fence"]
 
 # autodoc_typehints = "signature"  # autoapi respects this
 autodoc_typehints = "both"  # autoapi respects this
-autodoc_typehints_description_target = "documented_params"  # autoapi respects this
+autodoc_typehints_description_target = "all"  # autoapi respects this
 autodoc_class_signature = "mixed"
 autoclass_content = "class"
 
 autoapi_type = "python"
-autoapi_dirs = ["../[PACKAGE_NAME]"]
+autoapi_dirs = ["../src"]
+autoapi_template_dir = "_templates/autoapi"
 autoapi_options = []
 autoapi_keep_files = True
 

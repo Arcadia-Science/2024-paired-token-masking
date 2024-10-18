@@ -1,7 +1,6 @@
-# [PACKAGE-NAME]
+# Homepage
 
 This is the root page for your documentation. The source file is `docs/index.md`, and it is in this file that every page of documentation is either directly or indirectly referenced.
-
 
 ```{eval-rst}
 .. toctree::
@@ -9,8 +8,8 @@ This is the root page for your documentation. The source file is `docs/index.md`
    :maxdepth: 3
 
    self
+   pub
    install
-   examples/index
    autoapi/index
    license/index
 ```

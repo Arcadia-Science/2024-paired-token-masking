@@ -13,8 +13,8 @@ TODO.
 This repository uses conda to manage software environments and installations. You can find operating system-specific instructions for installing miniconda [here](https://docs.conda.io/projects/miniconda/en/latest/). After installing, run the following command to create the environment.
 
 ```{bash}
-conda env create -n esm-paired-masked-tokens --file env.yml
-conda activate esm-paired-masked-tokens
+conda env create -n esm-paired-token-masking --file env.yml
+conda activate esm-paired-token-masking
 pip install -e .
 ```
 
