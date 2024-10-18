@@ -1,17 +1,19 @@
 # 2024-esm-paired-masked-tokens
 
-[![run with conda](https://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/projects/miniconda/en/latest/)
-
 ## Purpose & Description
 
 TODO: Briefly describe the core analyses performed in the repository and the motivation behind them.
 
+## Link to publication
+
+TODO.
+
 ## Installation and Setup
 
-This repository uses conda to manage software environments and installations. You can find operating system-specific instructions for installing miniconda [here](https://docs.conda.io/projects/miniconda/en/latest/). After installing conda and [mamba](https://mamba.readthedocs.io/en/latest/), run the following command to create the environment.
+This repository uses conda to manage software environments and installations. You can find operating system-specific instructions for installing miniconda [here](https://docs.conda.io/projects/miniconda/en/latest/). After installing, run the following command to create the environment.
 
 ```{bash}
-mamba env create -n esm-paired-masked-tokens --file env.yml
+conda env create -n esm-paired-masked-tokens --file env.yml
 conda activate esm-paired-masked-tokens
 pip install -e .
 ```
