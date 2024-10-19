@@ -1,4 +1,4 @@
-exclude: (examples/|demo/|dev/|input/|output/)
+exclude: (input/|output/)
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.1.0

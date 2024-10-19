@@ -1,4 +1,4 @@
-# 2024-esm-paired-masked-tokens
+# 2024-paired-token-masking
 
 ## Purpose & Description
 
@@ -13,8 +13,8 @@ TODO.
 This repository uses conda to manage software environments and installations. You can find operating system-specific instructions for installing miniconda [here](https://docs.conda.io/projects/miniconda/en/latest/). After installing, run the following command to create the environment.
 
 ```{bash}
-conda env create -n esm-paired-token-masking --file env.yml
-conda activate esm-paired-token-masking
+conda env create -n paired-token-masking --file env.yml
+conda activate paired-token-masking
 pip install -e .
 ```
 

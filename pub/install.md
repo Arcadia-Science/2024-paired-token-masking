@@ -4,11 +4,11 @@ This analysis uses conda to manage software environments and installations. You 
 
 ## Cloning the repository
 
-The source code for this publication can be found [here](https://github.com/Arcadia-Science/2024-esm-paired-token-masking). If you want to contribute, or modify the analysis for yourself, you'll need to clone that repository:
+The source code for this publication can be found [here](https://github.com/Arcadia-Science/2024-paired-token-masking). If you want to contribute, or modify the analysis for yourself, you'll need to clone that repository:
 
 ```bash
-git clone https://github.com/Arcadia-Science/2024-esm-paired-token-masking.git
-cd 2024-esm-paired-token-masking
+git clone https://github.com/Arcadia-Science/2024-paired-token-masking.git
+cd 2024-paired-token-masking
 ```
 
 ## Setting up the environment
@@ -16,13 +16,13 @@ cd 2024-esm-paired-token-masking
 Then, simply install the conda environment,
 
 ```bash
-conda env create -n esm-paired-token-masking --file env.yml
+conda env create -n paired-token-masking --file env.yml
 ```
 
 activate the environment,
 
 ```bash
-conda activate esm-paired-token-masking
+conda activate paired-token-masking
 ```
 
 and finally, install the package contents.

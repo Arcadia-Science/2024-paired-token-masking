@@ -30,6 +30,7 @@ author = "Evan Kiefl"
 extensions = [
     "nbsphinx",
     "nbsphinx_link",
+    "sphinx_comments",
     "sphinx.ext.napoleon",
     "sphinx.ext.mathjax",
     "sphinx_copybutton",
@@ -60,6 +61,12 @@ smartquotes_action = "qe"
 # Something to consider: https://dokk.org/documentation/nbsphinx/0.9.3/prolog-and-epilog/
 nbsphinx_epilog = """"""
 nbsphinx_prolog = """"""
+
+# -- Hypothes.is commenting
+
+comments_config = {
+   "hypothesis": True
+}
 
 # -- Options for HTML output -------------------------------------------------
 

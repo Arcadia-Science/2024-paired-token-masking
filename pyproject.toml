@@ -27,6 +27,14 @@ extend-include = ["*.ipynb"]
 [tool.ruff.lint.per-file-ignores]
 # ignore star and unused imports
 "__init__.py" = ["F403", "F405"]
+"notebook.ipynb" = [
+    # Markdown paragraphs are converted to single line comments that extend past line limit. Ignore.
+    "E501",
+    # Cells often end with useless expressions. Ignore.
+    "B018",
+    # Allow imports throughout the file.
+    "E402",
+]
 
 [tool.ruff.lint]
 select = [
