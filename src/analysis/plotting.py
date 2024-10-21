@@ -20,7 +20,7 @@ import plotly.io as pio
 pio.renderers.default = "sphinx_gallery"
 
 
-def _get_plotly_colorscale(name):
+def get_plotly_colorscale(name):
     gradient = next(
         iter(gradient for gradient in apc.gradients.all_gradients if gradient.name == name)
     )
@@ -28,7 +28,16 @@ def _get_plotly_colorscale(name):
     return [(i / 255.0, mcolors.rgb2hex(cmap(i / 255.0))) for i in range(256)]
 
 
-def visualize_js_div_matrix(matrix_values: np.ndarray, title="", js_div_zmax: float = 0.2):
+def visualize_js_div_matrix(matrix_values: np.ndarray, title: str = "", js_div_zmax: float = 0.2):
+    """Plots a heatmap of the Jenson-Shannon (JS) divergence.
+
+    Args:
+        matrix_values: The square matrix of JS-divergence values.
+        title: A title for the plot.
+        js_div_zmax:
+            The JS-divergence value that corresponds to the highest color value. All
+            JS-divergence values above this will be floored to this color.
+    """
     # Compute the matrix values
     size = matrix_values.shape[0]
     indices = np.arange(size)
@@ -39,7 +48,7 @@ def visualize_js_div_matrix(matrix_values: np.ndarray, title="", js_div_zmax: fl
         z=np.swapaxes(matrix_values, 0, 1),
         x=indices,
         y=indices,
-        colorscale=_get_plotly_colorscale("sages"),
+        colorscale=get_plotly_colorscale("sages"),
         colorbar=dict(title="JS-divergence"),
         showscale=True,
         zauto=False,
@@ -62,6 +71,15 @@ def visualize_js_div_matrix(matrix_values: np.ndarray, title="", js_div_zmax: fl
 
 
 def compare_to_contact_map(js_div: np.ndarray, contact_map: np.ndarray, js_div_zmax: float = 0.1):
+    """Plots a conjoined heatmap of the Jenson-Shannon (JS) divergence and the 3D contact map.
+
+    Args:
+        js_div: The square matrix of JS-divergence values.
+        contact_map: The contact map.
+        js_div_zmax:
+            The JS-divergence value that corresponds to the highest color value. All
+            JS-divergence values above this will be floored to this color.
+    """
     upper_triangle_mask = np.triu(np.ones_like(contact_map, dtype=bool), k=0)
     lower_triangle_mask = np.tril(np.ones_like(js_div, dtype=bool), k=-1)
 
@@ -73,7 +91,7 @@ def compare_to_contact_map(js_div: np.ndarray, contact_map: np.ndarray, js_div_z
     fig.add_trace(
         go.Heatmap(
             z=z_lower,
-            colorscale=_get_plotly_colorscale("verde"),
+            colorscale=get_plotly_colorscale("verde"),
             colorbar=dict(title="Contact map", x=1.15),
             showscale=True,
             zauto=True,
@@ -84,7 +102,7 @@ def compare_to_contact_map(js_div: np.ndarray, contact_map: np.ndarray, js_div_z
     fig.add_trace(
         go.Heatmap(
             z=z_upper,
-            colorscale=_get_plotly_colorscale("sages"),
+            colorscale=get_plotly_colorscale("sages"),
             colorbar=dict(title="JS-divergence", x=0.95),
             showscale=True,
             zauto=False,
