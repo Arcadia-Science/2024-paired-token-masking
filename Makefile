@@ -22,6 +22,13 @@ pre-commit:
 test:
 	pytest -v .
 
+# By default, `execute` will execute notebook.ipynb (overwriting current state
+# of notebook). If the analysis includes prior setup, `execute` should be
+# updated to include these steps.
+.PHONY: execute
+execute:
+	jupyter nbconvert --to notebook --execute --inplace notebook.ipynb
+
 .PHONY: pub
 pub:
 	$(MAKE) -C pub/ clean-and-build-html

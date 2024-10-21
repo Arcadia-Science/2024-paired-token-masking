@@ -16,7 +16,6 @@ where = ["src"]
 [tool.ruff]
 # The directories to consider when resolving first- vs. third-party imports
 src = ["."]
-
 line-length = 100
 indent-width = 4
 
