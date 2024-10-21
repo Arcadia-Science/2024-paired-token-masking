@@ -4,9 +4,7 @@ import numpy as np
 import plotly.graph_objects as go
 
 
-def visualize_js_div_matrix(
-    matrix_values: np.ndarray, title="", js_div_zmax: float = 0.2
-):
+def visualize_js_div_matrix(matrix_values: np.ndarray, title="", js_div_zmax: float = 0.2):
     # Compute the matrix values
     size = matrix_values.shape[0]
     indices = np.arange(size)

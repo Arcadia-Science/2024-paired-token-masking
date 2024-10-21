@@ -64,9 +64,7 @@ nbsphinx_prolog = """"""
 
 # -- Hypothes.is commenting
 
-comments_config = {
-   "hypothesis": True
-}
+comments_config = {"hypothesis": True}
 
 # -- Options for HTML output -------------------------------------------------
 
