@@ -7,6 +7,8 @@ code directly in a notebook can make it cluttered and hard to follow. To solve t
 problem, we've created this separate module for plotting functions.
 """
 
+import arcadia_pycolor as apc
+import matplotlib.colors as mcolors
 import numpy as np
 import plotly.graph_objects as go
 import plotly.io as pio
@@ -16,6 +18,14 @@ import plotly.io as pio
 # Some more details:
 # https://sphinx-gallery.github.io/dev/auto_plotly_examples/plot_0_plotly.html
 pio.renderers.default = "sphinx_gallery"
+
+
+def _get_plotly_colorscale(name):
+    gradient = next(
+        iter(gradient for gradient in apc.gradients.all_gradients if gradient.name == name)
+    )
+    cmap = gradient.to_mpl_cmap()
+    return [(i / 255.0, mcolors.rgb2hex(cmap(i / 255.0))) for i in range(256)]
 
 
 def visualize_js_div_matrix(matrix_values: np.ndarray, title="", js_div_zmax: float = 0.2):
@@ -29,7 +39,7 @@ def visualize_js_div_matrix(matrix_values: np.ndarray, title="", js_div_zmax: fl
         z=np.swapaxes(matrix_values, 0, 1),
         x=indices,
         y=indices,
-        colorscale="Aggrnyl",
+        colorscale=_get_plotly_colorscale("sages"),
         colorbar=dict(title="JS-divergence"),
         showscale=True,
         zauto=False,
@@ -43,8 +53,8 @@ def visualize_js_div_matrix(matrix_values: np.ndarray, title="", js_div_zmax: fl
         title=title,
         xaxis_title="Residue j",
         yaxis_title="Residue i",
-        width=900,
-        height=800,
+        width=800,
+        height=700,
     )
 
     # Show the figure
@@ -63,7 +73,7 @@ def compare_to_contact_map(js_div: np.ndarray, contact_map: np.ndarray, js_div_z
     fig.add_trace(
         go.Heatmap(
             z=z_lower,
-            colorscale="Teal_r",
+            colorscale=_get_plotly_colorscale("verde"),
             colorbar=dict(title="Contact map", x=1.15),
             showscale=True,
             zauto=True,
@@ -74,8 +84,8 @@ def compare_to_contact_map(js_div: np.ndarray, contact_map: np.ndarray, js_div_z
     fig.add_trace(
         go.Heatmap(
             z=z_upper,
-            colorscale="Aggrnyl",
-            colorbar=dict(title="JS-divergence", x=1.0),
+            colorscale=_get_plotly_colorscale("sages"),
+            colorbar=dict(title="JS-divergence", x=0.95),
             showscale=True,
             zauto=False,
             zmax=js_div_zmax,
@@ -87,8 +97,8 @@ def compare_to_contact_map(js_div: np.ndarray, contact_map: np.ndarray, js_div_z
         title="Heatmaps of JS-divergence and structural contact map",
         xaxis=dict(title="Position i", constrain="domain"),
         yaxis=dict(title="Position j", constrain="domain", scaleanchor="x", scaleratio=1),
-        width=1000,
-        height=800,
+        width=900,
+        height=700,
     )
 
     fig.show()
