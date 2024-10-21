@@ -1,17 +1,21 @@
+"""Module for downloading and caching model weights / tokenziers to a Modal-hosted remote volume.
+
+By storing the model in a remote-volume, we circumvent the problem of downloading model
+weights each time an embedding job is requested. This was especially problematic for the
+largest 15B parameter model, which couldn't be reliably downloaded within Modal's maximum
+cold-start timeout of 20 minutes.
+"""
+
 import modal
-from huggingface_hub import hf_hub_download
-from huggingface_hub.utils import LocalEntryNotFoundError
-from rich.console import Console
-from transformers import AutoModel, AutoTokenizer
 
-VOLUME = modal.Volume.from_name("model-cache", create_if_missing=True)
-MODEL_STORAGE_PATH = "/vol"
+from analysis.modal_esm.constants import CACHING_APP, CONSOLE, IMAGE, MODEL_STORAGE_PATH, VOLUME
 
-image = modal.Image.debian_slim().apt_install("libpq-dev").pip_install("transformers", "torch")
+app = modal.App(name=CACHING_APP, image=IMAGE)
 
-app = modal.App(name="download-model", image=image)
-
-console = Console()
+with IMAGE.imports():
+    from huggingface_hub import hf_hub_download
+    from huggingface_hub.utils import LocalEntryNotFoundError
+    from transformers import AutoModel, AutoTokenizer
 
 
 def model_exists(model_name: str) -> bool:
@@ -65,7 +69,7 @@ def tokenizer_exists(model_name: str) -> bool:
 
 
 @app.function(volumes={MODEL_STORAGE_PATH: VOLUME}, timeout=7200)
-def download_and_cache_model(model_name: str, force_download: bool):
+def download_and_cache_model(model_name: str, force_download: bool) -> None:
     """Download and cache a HuggingFace model in the remote volume.
 
     This function checks whether a model and its tokenizer are already cached in the
@@ -83,25 +87,25 @@ def download_and_cache_model(model_name: str, force_download: bool):
     modified: bool = False
 
     if model_exists(model_name) and not force_download:
-        console.print(f"{model_name} model already stored in volume.", style="green")
+        CONSOLE.print(f"{model_name} model already stored in volume.", style="green")
     else:
         AutoModel.from_pretrained(
             model_name,
             cache_dir=MODEL_STORAGE_PATH,
             force_download=force_download,
         )
-        console.print(f"{model_name} model is now stored in volume.", style="green")
+        CONSOLE.print(f"{model_name} model is now stored in volume.", style="green")
         modified = True
 
     if tokenizer_exists(model_name) and not force_download:
-        console.print(f"{model_name} tokenizer already stored in volume.", style="green")
+        CONSOLE.print(f"{model_name} tokenizer already stored in volume.", style="green")
     else:
         AutoTokenizer.from_pretrained(
             model_name,
             cache_dir=MODEL_STORAGE_PATH,
             force_download=force_download,
         )
-        console.print(f"{model_name} tokenizer is now stored in volume.", style="green")
+        CONSOLE.print(f"{model_name} tokenizer is now stored in volume.", style="green")
         modified = True
 
     if modified:
@@ -109,5 +113,12 @@ def download_and_cache_model(model_name: str, force_download: bool):
 
 
 @app.local_entrypoint()
-def main(model_name: str, force_download: bool = False):
+def main(model_name: str, force_download: bool = False) -> None:
+    """The local entrypoint for the app.
+
+    This function defines a CLI for :func:`download_and_cache_model`.
+
+    Example:
+        $ modal run cache_model.py --model-name XXX
+    """
     download_and_cache_model.remote(model_name, force_download)
