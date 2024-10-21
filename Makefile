@@ -22,11 +22,12 @@ pre-commit:
 test:
 	pytest -v .
 
-# By default, `execute` will execute notebook.ipynb (overwriting current state
-# of notebook). If the analysis includes prior setup, `execute` should be
-# updated to include these steps.
+# By default, `execute` will just execute notebook.ipynb (overwriting current
+# state of notebook) using `jupyter nbconvert`. If the analysis includes prior
+# setup, `execute` should be updated to include these steps.
 .PHONY: execute
 execute:
+	modal deploy src/analysis/modal_esm/predict.py
 	jupyter nbconvert --to notebook --execute --inplace notebook.ipynb
 
 .PHONY: pub
