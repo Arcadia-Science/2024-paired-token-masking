@@ -17,6 +17,6 @@ IMAGE: modal.Image = (
 )
 
 PREDICTION_APP: str = "esm-masked-prediction"
-CACHING_APP: str = "esm-masked-prediction"
+CACHING_APP: str = "download-and-cache-models"
 
 CONSOLE: Console = Console()

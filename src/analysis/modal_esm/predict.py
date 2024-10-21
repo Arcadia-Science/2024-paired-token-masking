@@ -12,6 +12,8 @@ import numpy as np
 import torch
 from modal.functions import gather
 
+from analysis.modal_esm.cache_model import app as cache_app
+from analysis.modal_esm.cache_model import download_and_cache_model
 from analysis.modal_esm.constants import (
     CONSOLE,
     HOURS,
@@ -29,6 +31,7 @@ with IMAGE.imports():
 
 
 app = modal.App(name=PREDICTION_APP, image=IMAGE)
+app.include(cache_app)
 
 
 @app.cls(
@@ -187,6 +190,8 @@ def predict(
         - Care must be taken to ensure the the GPU chosen can withstand the memory
           requirements of the model and batch size.
     """
+
+    download_and_cache_model.remote(model_name, force_download=False)
 
     start_time = time.time()
 
