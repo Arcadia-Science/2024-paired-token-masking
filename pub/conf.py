@@ -68,6 +68,15 @@ comments_config = {"hypothesis": True}
 
 # -- Options for HTML output -------------------------------------------------
 
+html_theme_options = {
+    "sidebar_hide_name": True,
+    "light_css_variables": {
+        "font-stack": "'Helvetica Neue', sans-serif",
+        "font-stack--monospace": "Courier, monospace",
+        "font-stack--headings": "Georgia, serif",
+    },
+}
+
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 html_theme = "furo"
