@@ -2,7 +2,7 @@
 
 ## Purpose & Description
 
-Please refer to the publication:  TODO
+Please refer to the publication: TODO
 
 ## Installation
 

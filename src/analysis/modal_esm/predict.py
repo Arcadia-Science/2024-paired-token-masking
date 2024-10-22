@@ -41,7 +41,7 @@ app.include(cache_app)
     timeout=10 * MINUTES,
     container_idle_timeout=20,
 )
-class _ESMMaskedPrediction:
+class ESMMaskedPrediction:
     """A Modal class for calculating masked position probabilities batch by batch using ESM models.
 
     This class is instantiated once per container and will remain active until no calls to
@@ -157,7 +157,7 @@ def predict(
     batch_size: int,
     max_length: int,
 ) -> np.ndarray:
-    """Calculates masked position probabilities by delegating to `_ESMMaskedPrediction`.
+    """Calculates masked position probabilities by delegating to `ESMMaskedPrediction`.
 
     This function acts as the entry point for the prediction process. It divides the masked
     positions into batches, spawns GPU workers to process each batch, and gathers the results.
@@ -197,7 +197,7 @@ def predict(
 
     CONSOLE.print(f"Using model {model_name}.")
 
-    predict_cls = _ESMMaskedPrediction.with_options(gpu=gpu, concurrency_limit=num_gpus)  # type: ignore
+    predict_cls = ESMMaskedPrediction.with_options(gpu=gpu, concurrency_limit=num_gpus)  # type: ignore
     worker_factory = predict_cls(model_name)
 
     CONSOLE.print("Submitting jobs...")
