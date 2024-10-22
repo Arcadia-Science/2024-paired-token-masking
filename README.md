@@ -32,7 +32,7 @@ pip install -e .
     conda env export --from-history --no-builds > envs/dev.yml
     ```
 
-    `--from-history` only exports packages that were explicitly added by you (e.g., the packages you installed with `pip` or `mamba`) and `--no-builds` removes build specification from the exported packages to increase portability between different platforms.
+    `--from-history` only exports packages that were explicitly added by you (e.g., the packages you installed with `pip` or `conda`) and `--no-builds` removes build specification from the exported packages to increase portability between different platforms.
 </details>
 
 ## Modify
