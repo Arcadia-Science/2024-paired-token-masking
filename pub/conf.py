@@ -139,6 +139,4 @@ autoapi_ignore = [
 ]
 
 # Related custom CSS
-html_css_files = [
-    "css/label.css",
-]
+html_css_files = []
