@@ -2,13 +2,9 @@
 
 ## Purpose & Description
 
-TODO: Briefly describe the core analyses performed in the repository and the motivation behind them.
+Please refer to the publication:  TODO
 
-## Link to publication
-
-TODO.
-
-## Installation and Setup
+## Installation
 
 This repository uses conda to manage software environments and installations. You can find operating system-specific instructions for installing miniconda [here](https://docs.conda.io/projects/miniconda/en/latest/). After installing, run the following command to create the environment.
 
@@ -39,9 +35,43 @@ pip install -e .
     `--from-history` only exports packages that were explicitly added by you (e.g., the packages you installed with `pip` or `mamba`) and `--no-builds` removes build specification from the exported packages to increase portability between different platforms.
 </details>
 
+## Generate the publication
+
+To generate a local copy of the publication, run
+
+```{bash}
+make pub
+```
+
+The above command assumes that `notebook.ipynb` has already been ran. If the outputs have been cleared, or you would like to re-run the notebook prior to `make pub`, run
+
+```{bash}
+make execute
+```
+
 ## Data
 
-TODO: Add details about the description of input / output data and links to Zenodo depositions, if applicable.
+All input and output data are git-tracked in the repository.
+
+**Inputs**:
+
+```{bash}
+  input
+  │  P00813.fasta
+  └  P00813.pdb
+```
+
+`P00813.fasta` and `P00813.pdb` are the amino acid sequence and AlphaFold-predicted structure for human adenosine deaminase and were downloaded from the [P00813 UniProt entry](https://www.uniprot.org/uniprotkb/P00813/entry).
+
+**Outputs**:
+
+```{bash}
+  output
+  │  logits_single.npz
+  └  logits_double.npz
+```
+
+`logits_single.npz` and `logits_double.npz` store the raw logits from each ESM2 model for the single token mask library and the double token mask library, respectively. NPZ is a Numpy file format for storing many arrays which can be accessed by key values. These arrays are calculated using Modal and are git-tracked to avoid expensive recomputation. For details on usage, see how the publication uses them.
 
 ## Contributing
 
