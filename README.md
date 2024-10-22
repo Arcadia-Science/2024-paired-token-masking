@@ -45,7 +45,7 @@ jupyter-lab notebook.ipynb
 
 ## Generate
 
-To generate a local copy of the publication, run
+To generate a local copy of the publication:
 
 ```bash
 make pub
