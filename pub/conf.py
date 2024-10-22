@@ -111,7 +111,14 @@ sphinx_tabs_disable_tab_closing = True
 copybutton_exclude = ".linenos, .gp, .go"
 
 # -- myst options
-myst_enable_extensions = ["colon_fence"]
+myst_enable_extensions = [
+    "colon_fence",
+    "substitution",
+]
+
+myst_substitutions = {
+    "repo_link": "https://github.com/Arcadia-Science/2024-paired-token-masking",
+}
 
 # -- autoapi configuration ---------------------------------------------------
 

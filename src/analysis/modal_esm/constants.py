@@ -1,5 +1,3 @@
-"""Constants for the Modal app(s)."""
-
 from __future__ import annotations
 
 import modal
@@ -12,7 +10,7 @@ HOURS: int = MINUTES * 60
 
 IMAGE: modal.Image = (
     modal.Image.debian_slim()
-    .apt_install("libpq-dev")  # TODO(ek): remove if possible
+    .apt_install("libpq-dev")
     .pip_install("transformers", "torch", "pandas")
 )
 
