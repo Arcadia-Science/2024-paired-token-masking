@@ -139,4 +139,11 @@ autoapi_ignore = [
 ]
 
 # Related custom CSS
-html_css_files = []
+html_css_files = [
+    "custom.css",
+]
+
+# Related custom JS
+html_js_files = [
+    "custom.js",
+]
