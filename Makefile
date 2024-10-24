@@ -35,3 +35,10 @@ run-notebook:
 pub:
 	$(MAKE) -C pub/ clean-and-build-html
 	$(MAKE) -C pub/ view-html
+
+
+.PHONY: markdown
+markdown:
+	jupyter nbconvert --to markdown notebook.ipynb
+	zip notebook.zip notebook.md notebook_files/
+	rm -rf notebook.md notebook_files/

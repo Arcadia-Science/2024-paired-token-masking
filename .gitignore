@@ -1,3 +1,8 @@
+# markdown export
+notebook.md
+notebook_files/
+notebook.zip
+
 # packages installed in editable mode
 envs/src/**
 
