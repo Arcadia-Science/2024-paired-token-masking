@@ -15,5 +15,5 @@ image: modal.Image = (
 
 MINUTES: int = 60
 HOURS: int = MINUTES * 60
-PREDICTION_APP: str = "esm-masked-prediction"
-CACHING_APP: str = "download-and-cache-models"
+PREDICTION_APP_NAME: str = "esm-masked-prediction"
+CACHING_APP_NAME: str = "download-and-cache-models"

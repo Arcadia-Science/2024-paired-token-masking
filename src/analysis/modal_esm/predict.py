@@ -17,7 +17,7 @@ from analysis.modal_esm.cache_model import download_and_cache_model
 from analysis.modal_esm.constants import (
     HOURS,
     MINUTES,
-    PREDICTION_APP,
+    PREDICTION_APP_NAME,
     console,
     image,
     model_storage_path,
@@ -30,7 +30,7 @@ with image.imports():
     from transformers import AutoTokenizer, EsmForMaskedLM
 
 
-app = modal.App(name=PREDICTION_APP, image=image)
+app = modal.App(name=PREDICTION_APP_NAME, image=image)
 app.include(cache_app)
 
 

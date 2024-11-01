@@ -8,9 +8,15 @@ cold-start timeout of 20 minutes.
 
 import modal
 
-from analysis.modal_esm.constants import CACHING_APP, console, image, model_storage_path, volume
+from analysis.modal_esm.constants import (
+    CACHING_APP_NAME,
+    console,
+    image,
+    model_storage_path,
+    volume,
+)
 
-app = modal.App(name=CACHING_APP, image=image)
+app = modal.App(name=CACHING_APP_NAME, image=image)
 
 with image.imports():
     from huggingface_hub import hf_hub_download
