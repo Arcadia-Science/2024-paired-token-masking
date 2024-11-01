@@ -26,9 +26,7 @@ class ExtractHTMLPreprocessor(Preprocessor):
                         data = output.data[mime]
 
                         # Generate a unique filename for each HTML output
-                        filename = (
-                            f'output_{index}_{output_index}_{mime.replace("/", "_")}.html'
-                        )
+                        filename = f'output_{index}_{output_index}_{mime.replace("/", "_")}.html'
                         filepath = os.path.join(output_dir, filename)
 
                         # Save the HTML content to a file

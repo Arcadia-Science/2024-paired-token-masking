@@ -45,6 +45,12 @@ jupyter-lab notebook.ipynb
 
 ## Generate
 
+First, consider executing the notebook to create a clean copy. This will run your notebook from top to bottom, ensuring there are no out-of-order variables and that the cell numbers are sequential:
+
+```bash
+make run-notebook
+```
+
 To generate a local copy of the publication:
 
 ```bash
