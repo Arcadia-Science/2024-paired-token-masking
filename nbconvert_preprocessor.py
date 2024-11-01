@@ -18,28 +18,30 @@ class ExtractHTMLPreprocessor(Preprocessor):
 
         if hasattr(cell, "outputs"):
             for output_index, output in enumerate(cell.outputs):
-                if output.output_type in ("display_data", "execute_result"):
-                    for mime in self.output_mimetypes:
-                        if mime in output.data:
-                            data = output.data[mime]
+                if output.output_type not in ("display_data", "execute_result"):
+                    continue
 
-                            # Generate a unique filename for each HTML output
-                            filename = (
-                                f'output_{index}_{output_index}_{mime.replace("/", "_")}.html'
-                            )
-                            filepath = os.path.join(output_dir, filename)
+                for mime in self.output_mimetypes:
+                    if mime in output.data:
+                        data = output.data[mime]
 
-                            # Save the HTML content to a file
-                            with open(filepath, "w", encoding="utf-8") as f:
-                                f.write(data)
+                        # Generate a unique filename for each HTML output
+                        filename = (
+                            f'output_{index}_{output_index}_{mime.replace("/", "_")}.html'
+                        )
+                        filepath = os.path.join(output_dir, filename)
 
-                            # Replace output in the cell with an iframe referencing the saved file
-                            relative_path = os.path.join(output_dir, filename).replace("\\", "/")
-                            iframe_html = (
-                                f'<iframe src="{relative_path}" width="100%" height="600" '
-                                f'frameborder="0" allowfullscreen></iframe>'
-                            )
+                        # Save the HTML content to a file
+                        with open(filepath, "w", encoding="utf-8") as f:
+                            f.write(data)
 
-                            # Replace the data in the output
-                            output.data = {"text/html": iframe_html}
+                        # Replace output in the cell with an iframe referencing the saved file
+                        relative_path = os.path.join(output_dir, filename).replace("\\", "/")
+                        iframe_html = (
+                            f'<iframe src="{relative_path}" width="100%" height="600" '
+                            f'frameborder="0" allowfullscreen></iframe>'
+                        )
+
+                        # Replace the data in the output
+                        output.data = {"text/html": iframe_html}
         return cell, resources

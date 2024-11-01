@@ -64,7 +64,7 @@ All input and output data are git-tracked in the repository.
 
 **Outputs**:
 
-* `logits_single.npz`: Stores the raw logits of each ESM2 model for the single token mask library. NPZ is a Numpy file format for storing many arrays which can be accessed by key values. This file is calculated using Modal and is git-tracked to avoid expensive recomputation. For details on usage, see how the publication uses it.
+* `logits_single.npz`: Stores the raw logits of each ESM2 model for the single token mask library. NPZ is a Numpy file format for storing many arrays which can be accessed by key values. This file is calculated using Modal and is git-tracked to avoid expensive recomputation, and so the notebook can be run without needing to run anything using Modal. For details on usage, see how the publication uses it.
 * `logits_double.npz`: Same as above, but for the double token mask library.
 
 ## Contributing

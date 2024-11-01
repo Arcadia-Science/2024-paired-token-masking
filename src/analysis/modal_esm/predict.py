@@ -15,27 +15,27 @@ from modal.functions import gather
 from analysis.modal_esm.cache_model import app as cache_app
 from analysis.modal_esm.cache_model import download_and_cache_model
 from analysis.modal_esm.constants import (
-    CONSOLE,
     HOURS,
-    IMAGE,
     MINUTES,
-    MODEL_STORAGE_PATH,
     PREDICTION_APP,
-    VOLUME,
+    console,
+    image,
+    model_storage_path,
+    volume,
 )
 
-with IMAGE.imports():
+with image.imports():
     import time
 
     from transformers import AutoTokenizer, EsmForMaskedLM
 
 
-app = modal.App(name=PREDICTION_APP, image=IMAGE)
+app = modal.App(name=PREDICTION_APP, image=image)
 app.include(cache_app)
 
 
 @app.cls(
-    volumes={MODEL_STORAGE_PATH: VOLUME},
+    volumes={model_storage_path: volume},
     gpu="any",
     concurrency_limit=1,
     timeout=10 * MINUTES,
@@ -80,12 +80,12 @@ class ESMMaskedPrediction:
 
         self.tokenizer = AutoTokenizer.from_pretrained(
             self.model_name,
-            cache_dir=MODEL_STORAGE_PATH,
+            cache_dir=model_storage_path,
             local_files_only=True,
         )
         self.model = EsmForMaskedLM.from_pretrained(
             self.model_name,
-            cache_dir=MODEL_STORAGE_PATH,
+            cache_dir=model_storage_path,
             local_files_only=True,
         )
         self.model.to("cuda")  # type: ignore
@@ -195,28 +195,31 @@ def predict(
 
     start_time = time.time()
 
-    CONSOLE.print(f"Using model {model_name}.")
+    console.print(f"Using model {model_name}.")
 
-    predict_cls = ESMMaskedPrediction.with_options(gpu=gpu, concurrency_limit=num_gpus)  # type: ignore
-    worker_factory = predict_cls(model_name)
+    ESMMaskedPredictionUsingGPU = ESMMaskedPrediction.with_options(  # type: ignore
+        gpu=gpu,
+        concurrency_limit=num_gpus,
+    )
+    esm_masked_prediction = ESMMaskedPredictionUsingGPU(model_name)
 
-    CONSOLE.print("Submitting jobs...")
+    console.print("Submitting jobs...")
 
     batch_jobs = []
     for idx in range(0, len(masked_positions), batch_size):
         batch = masked_positions[idx : idx + batch_size]
-        batch_job = worker_factory.predict.spawn(sequence, batch, max_length)
+        batch_job = esm_masked_prediction.predict.spawn(sequence, batch, max_length)
         batch_jobs.append(batch_job)
 
-    CONSOLE.print("Gathering results...")
+    console.print("Gathering results...")
 
     results = gather(*batch_jobs)
 
-    CONSOLE.print("Stacking results...")
+    console.print("Stacking results...")
 
     stacked_results = np.vstack(results)
 
     elapsed = time.time() - start_time
-    CONSOLE.print(f"Finished in {elapsed} seconds.")
+    console.print(f"Finished in {elapsed} seconds.")
 
     return stacked_results

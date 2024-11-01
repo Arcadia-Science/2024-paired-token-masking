@@ -8,11 +8,11 @@ cold-start timeout of 20 minutes.
 
 import modal
 
-from analysis.modal_esm.constants import CACHING_APP, CONSOLE, IMAGE, MODEL_STORAGE_PATH, VOLUME
+from analysis.modal_esm.constants import CACHING_APP, console, image, model_storage_path, volume
 
-app = modal.App(name=CACHING_APP, image=IMAGE)
+app = modal.App(name=CACHING_APP, image=image)
 
-with IMAGE.imports():
+with image.imports():
     from huggingface_hub import hf_hub_download
     from huggingface_hub.utils import LocalEntryNotFoundError
     from transformers import AutoModel, AutoTokenizer
@@ -21,7 +21,7 @@ with IMAGE.imports():
 def model_exists(model_name: str) -> bool:
     """Returns whether a HuggingFace model is cached in the remote volume.
 
-    The remote volume is hard-coded as `model-cache` and the storage path models is
+    The remote volume is hard-coded as `esm-model-cache` and the storage path models is
     `/vol`.
 
     Args:
@@ -37,7 +37,7 @@ def model_exists(model_name: str) -> bool:
         hf_hub_download(
             model_name,
             "config.json",
-            cache_dir=MODEL_STORAGE_PATH,
+            cache_dir=model_storage_path,
             local_files_only=True,
         )
         return True
@@ -48,7 +48,7 @@ def model_exists(model_name: str) -> bool:
 def tokenizer_exists(model_name: str) -> bool:
     """Returns whether a HuggingFace tokenizer is cached in the remote volume.
 
-    The remote volume is hard-coded as `model-cache` and the storage path models is
+    The remote volume is hard-coded as `esm-model-cache` and the storage path models is
     `/vol`.
 
     Args:
@@ -60,7 +60,7 @@ def tokenizer_exists(model_name: str) -> bool:
         hf_hub_download(
             model_name,
             "tokenizer_config.json",
-            cache_dir=MODEL_STORAGE_PATH,
+            cache_dir=model_storage_path,
             local_files_only=True,
         )
         return True
@@ -68,7 +68,7 @@ def tokenizer_exists(model_name: str) -> bool:
         return False
 
 
-@app.function(volumes={MODEL_STORAGE_PATH: VOLUME}, timeout=7200)
+@app.function(volumes={model_storage_path: volume}, timeout=7200)
 def download_and_cache_model(model_name: str, force_download: bool) -> None:
     """Download and cache a HuggingFace model in the remote volume.
 
@@ -87,29 +87,29 @@ def download_and_cache_model(model_name: str, force_download: bool) -> None:
     modified: bool = False
 
     if model_exists(model_name) and not force_download:
-        CONSOLE.print(f"{model_name} model already stored in volume.", style="green")
+        console.print(f"{model_name} model already stored in volume.", style="green")
     else:
         AutoModel.from_pretrained(
             model_name,
-            cache_dir=MODEL_STORAGE_PATH,
+            cache_dir=model_storage_path,
             force_download=force_download,
         )
-        CONSOLE.print(f"{model_name} model is now stored in volume.", style="green")
+        console.print(f"{model_name} model is now stored in volume.", style="green")
         modified = True
 
     if tokenizer_exists(model_name) and not force_download:
-        CONSOLE.print(f"{model_name} tokenizer already stored in volume.", style="green")
+        console.print(f"{model_name} tokenizer already stored in volume.", style="green")
     else:
         AutoTokenizer.from_pretrained(
             model_name,
-            cache_dir=MODEL_STORAGE_PATH,
+            cache_dir=model_storage_path,
             force_download=force_download,
         )
-        CONSOLE.print(f"{model_name} tokenizer is now stored in volume.", style="green")
+        console.print(f"{model_name} tokenizer is now stored in volume.", style="green")
         modified = True
 
     if modified:
-        VOLUME.commit()
+        volume.commit()
 
 
 @app.local_entrypoint()
