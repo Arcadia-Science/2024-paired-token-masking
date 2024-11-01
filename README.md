@@ -1,28 +1,24 @@
-# TODO: Replace with the name of the repo
+# 2024-paired-token-masking
 
-[![run with conda](https://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/projects/miniconda/en/latest/)
+## Purpose & Description
 
-Note: Analysis repo names should be prefixed with the year (ie `2024-noveltree-analysis`)
+Please refer to the publication: TODO
 
-## Purpose
+## Installation
 
-TODO: Briefly describe the core analyses performed in the repository and the motivation behind them.
+This repository uses conda to manage software environments and installations. You can find operating system-specific instructions for installing miniconda [here](https://docs.conda.io/projects/miniconda/en/latest/). After installing, run the following command to create the environment.
 
-## Installation and Setup
-
-This repository uses conda to manage software environments and installations. You can find operating system-specific instructions for installing miniconda [here](https://docs.conda.io/projects/miniconda/en/latest/). After installing conda and [mamba](https://mamba.readthedocs.io/en/latest/), run the following command to create the pipeline run environment.
-
-```{bash}
-TODO: Replace <NAME> with the name of your environment
-mamba env create -n <NAME> --file envs/dev.yml
-conda activate <NAME>
+```bash
+conda env create -n paired-token-masking --file env.yml
+conda activate paired-token-masking
+pip install -e .
 ```
 
 <details><summary>Developer Notes (click to expand/collapse)</summary>
 
 1. Install your pre-commit hooks:
 
-    ```{bash}
+    ```bash
     pre-commit install
     ```
 
@@ -32,56 +28,51 @@ conda activate <NAME>
 
     As your project develops, the number of dependencies in your environment may increase. Whenever you install new dependencies (using either `pip install` or `mamba install`), you should update the environment file using the following command.
 
-    ```{bash}
+    ```bash
     conda env export --from-history --no-builds > envs/dev.yml
     ```
 
-    `--from-history` only exports packages that were explicitly added by you (e.g., the packages you installed with `pip` or `mamba`) and `--no-builds` removes build specification from the exported packages to increase portability between different platforms.
+    `--from-history` only exports packages that were explicitly added by you (e.g., the packages you installed with `pip` or `conda`) and `--no-builds` removes build specification from the exported packages to increase portability between different platforms.
 </details>
+
+## Modify
+
+To modify or extend any analyses, open up `notebook.ipynb` with Jupyter:
+
+```bash
+jupyter-lab notebook.ipynb
+```
+
+## Generate
+
+First, consider executing the notebook to create a clean copy. This will run your notebook from top to bottom, ensuring there are no out-of-order variables and that the cell numbers are sequential:
+
+```bash
+make run-notebook
+```
+
+To generate a local copy of the publication:
+
+```bash
+make pub
+```
+
+A new tab in your browser will pop up with a local version of the publication.
 
 ## Data
 
-TODO: Add details about the description of input / output data and links to Zenodo depositions, if applicable.
+All input and output data are git-tracked in the repository.
 
-## Overview
+**Inputs**:
 
-### Description of the folder structure
+* `inputs/P00813.fasta`: The amino acid sequence for human adenosine deaminase. Downloaded from the P00813 UniProt entry(https://www.uniprot.org/uniprotkb/P00813/entry).
+* `inputs/P00813.pdb`: The AlphaFold-predicted structure for human adenosine deaminase. Downloaded from the P00813 UniProt entry(https://www.uniprot.org/uniprotkb/P00813/entry).
 
-### Methods
+**Outputs**:
 
-TODO: Include a brief, step-wise overview of analyses performed.
-
-> Example:
->
-> 1.  Download scripts using `download.ipynb`.
-> 2.  Preprocess using `./preprocessing.sh -a data/`
-> 3.  Run Snakemake pipeline `snakemake --snakefile Snakefile`
-> 4.  Generate figures using `pub/make_figures.ipynb`.
-
-### Compute Specifications
-
-TODO: Describe what compute resources were used to run the analysis. For example, you could list the operating system, number of cores, RAM, and storage space.
+* `logits_single.npz`: Stores the raw logits of each ESM2 model for the single token mask library. NPZ is a Numpy file format for storing many arrays which can be accessed by key values. This file is calculated using Modal and is git-tracked to avoid expensive recomputation, and so the notebook can be run without needing to run anything using Modal. For details on usage, see how the publication uses it.
+* `logits_double.npz`: Same as above, but for the double token mask library.
 
 ## Contributing
 
 See how we recognize [feedback and contributions to our code](https://github.com/Arcadia-Science/arcadia-software-handbook/blob/main/guides-and-standards/guide-credit-for-contributions.md).
-
----
-## For Developers
-
-This section contains information for developers who are working off of this template. Please adjust or edit this section as appropriate when you're ready to share your repo.
-
-### GitHub templates
-This template uses GitHub templates to provide checklists when making new pull requests. These templates are stored in the [.github/](./.github/) directory.
-
-### VSCode
-This template includes recommendations to VSCode users for extensions, particularly the `ruff` linter. These recommendations are stored in `.vscode/extensions.json`. When you open the repository in VSCode, you should see a prompt to install the recommended extensions.
-
-### `.gitignore`
-This template uses a `.gitignore` file to prevent certain files from being committed to the repository.
-
-### `pyproject.toml`
-`pyproject.toml` is a configuration file to specify your project's metadata and to set the behavior of other tools such as linters, type checkers etc. You can learn more [here](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/)
-
-### Linting
-This template automates linting and formatting using GitHub Actions and the `ruff` linter. When you push changes to your repository, GitHub will automatically run the linter and report any errors, blocking merges until they are resolved.

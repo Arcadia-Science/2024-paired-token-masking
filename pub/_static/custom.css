@@ -1,0 +1,12 @@
+.theme-toggle-container {
+  display: none;
+}
+
+/* Uncomment to see a proof of concept for adding Arcadia styling
+.sidebar-drawer {
+  background-image: url('sidebar_background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+*/
