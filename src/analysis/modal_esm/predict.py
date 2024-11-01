@@ -17,10 +17,10 @@ from analysis.modal_esm.cache_model import download_and_cache_model
 from analysis.modal_esm.constants import (
     HOURS,
     MINUTES,
+    MODEL_STORAGE_PATH,
     PREDICTION_APP_NAME,
     console,
     image,
-    model_storage_path,
     volume,
 )
 
@@ -35,7 +35,7 @@ app.include(cache_app)
 
 
 @app.cls(
-    volumes={model_storage_path: volume},
+    volumes={MODEL_STORAGE_PATH: volume},
     gpu="any",
     concurrency_limit=1,
     timeout=10 * MINUTES,
@@ -80,12 +80,12 @@ class ESMMaskedPrediction:
 
         self.tokenizer = AutoTokenizer.from_pretrained(
             self.model_name,
-            cache_dir=model_storage_path,
+            cache_dir=MODEL_STORAGE_PATH,
             local_files_only=True,
         )
         self.model = EsmForMaskedLM.from_pretrained(
             self.model_name,
-            cache_dir=model_storage_path,
+            cache_dir=MODEL_STORAGE_PATH,
             local_files_only=True,
         )
         self.model.to("cuda")  # type: ignore

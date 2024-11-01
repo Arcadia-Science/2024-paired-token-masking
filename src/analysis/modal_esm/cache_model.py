@@ -10,9 +10,9 @@ import modal
 
 from analysis.modal_esm.constants import (
     CACHING_APP_NAME,
+    MODEL_STORAGE_PATH,
     console,
     image,
-    model_storage_path,
     volume,
 )
 
@@ -43,7 +43,7 @@ def model_exists(model_name: str) -> bool:
         hf_hub_download(
             model_name,
             "config.json",
-            cache_dir=model_storage_path,
+            cache_dir=MODEL_STORAGE_PATH,
             local_files_only=True,
         )
         return True
@@ -66,7 +66,7 @@ def tokenizer_exists(model_name: str) -> bool:
         hf_hub_download(
             model_name,
             "tokenizer_config.json",
-            cache_dir=model_storage_path,
+            cache_dir=MODEL_STORAGE_PATH,
             local_files_only=True,
         )
         return True
@@ -74,7 +74,7 @@ def tokenizer_exists(model_name: str) -> bool:
         return False
 
 
-@app.function(volumes={model_storage_path: volume}, timeout=7200)
+@app.function(volumes={MODEL_STORAGE_PATH: volume}, timeout=7200)
 def download_and_cache_model(model_name: str, force_download: bool) -> None:
     """Download and cache a HuggingFace model in the remote volume.
 
@@ -97,7 +97,7 @@ def download_and_cache_model(model_name: str, force_download: bool) -> None:
     else:
         AutoModel.from_pretrained(
             model_name,
-            cache_dir=model_storage_path,
+            cache_dir=MODEL_STORAGE_PATH,
             force_download=force_download,
         )
         console.print(f"{model_name} model is now stored in volume.", style="green")
@@ -108,7 +108,7 @@ def download_and_cache_model(model_name: str, force_download: bool) -> None:
     else:
         AutoTokenizer.from_pretrained(
             model_name,
-            cache_dir=model_storage_path,
+            cache_dir=MODEL_STORAGE_PATH,
             force_download=force_download,
         )
         console.print(f"{model_name} tokenizer is now stored in volume.", style="green")
