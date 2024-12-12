@@ -26,7 +26,7 @@ def calculate_or_load_logits(config: LogitsConfig):
                 all_single_logits = predict.local(
                     sequence=config.sequence,
                     masked_positions=config.single_masks,
-                    model_name=model,
+                    model_name=model.value,
                     gpu=gpu,
                     num_gpus=1,
                     batch_size=batch_size,
@@ -34,16 +34,16 @@ def calculate_or_load_logits(config: LogitsConfig):
                 single_logits[model] = _filter_unmasked_single_logits(
                     all_single_logits, config.single_masks
                 )
-            print(f"Finished single mask inference with {model}...")
+            print(f"Finished single mask inference with {model.value}...")
         else:
-            print(f"Single mask library already loaded for {model}. Skipping.")
+            print(f"Single mask library already loaded for {model.value}. Skipping.")
 
         if model not in double_logits:
             with app.run(show_progress=False):
                 all_double_logits = predict.local(
                     sequence=config.sequence,
                     masked_positions=config.double_masks,
-                    model_name=model,
+                    model_name=model.value,
                     gpu=gpu,
                     num_gpus=10,
                     batch_size=batch_size,
@@ -51,12 +51,12 @@ def calculate_or_load_logits(config: LogitsConfig):
                 double_logits[model] = _filter_unmasked_double_logits(
                     all_double_logits, config.double_masks
                 )
-            print(f"Finished double mask inference with {model}...")
+            print(f"Finished double mask inference with {model.value}...")
         else:
-            print(f"Double mask library already loaded for {model}. Skipping.")
+            print(f"Double mask library already loaded for {model.value}. Skipping.")
 
-        np.savez(config.single_logits_path, **single_logits)
-        np.savez(config.double_logits_path, **double_logits)
+        np.savez(config.single_logits_path, **{k.value: v for k, v in single_logits.items()})
+        np.savez(config.double_logits_path, **{k.value: v for k, v in double_logits.items()})
 
     return single_logits, double_logits
 
@@ -72,12 +72,12 @@ gpu_workload_specs = {
 }
 
 
-def _get_logits_if_exists(path: Path) -> dict[str, np.ndarray]:
+def _get_logits_if_exists(path: Path) -> dict[ModelName, np.ndarray]:
     if not path.exists():
         return {}
 
     logits_cache = np.load(path)
-    return {key: logits_cache[key] for key in logits_cache}
+    return {ModelName(key): logits_cache[key] for key in logits_cache}
 
 
 def _filter_unmasked_double_logits(array: np.ndarray, masks: list[tuple[int, int]]) -> np.ndarray:
