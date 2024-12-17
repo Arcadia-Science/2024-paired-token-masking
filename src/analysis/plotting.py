@@ -11,13 +11,6 @@ import arcadia_pycolor as apc
 import matplotlib.colors as mcolors
 import numpy as np
 import plotly.graph_objects as go
-import plotly.io as pio
-
-# Plotly figures don't show up in sphinx-rendered notebooks using the default renderer,
-# so we use the sphinx_gallery renderer. There may be other, more appropriate options.
-# Some more details:
-# https://sphinx-gallery.github.io/dev/auto_plotly_examples/plot_0_plotly.html
-pio.renderers.default = "sphinx_gallery"
 
 
 def get_plotly_colorscale(name):
