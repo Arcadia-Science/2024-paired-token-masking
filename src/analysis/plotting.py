@@ -11,6 +11,9 @@ import arcadia_pycolor as apc
 import matplotlib.colors as mcolors
 import numpy as np
 import plotly.graph_objects as go
+import plotly.io as pio
+
+pio.renderers.default = "notebook"
 
 
 def get_plotly_colorscale(name):
