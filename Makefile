@@ -1,5 +1,3 @@
-PUB_DIR := ./pub
-
 .PHONY: lint
 lint:
 	ruff check --exit-zero .
@@ -22,15 +20,9 @@ pre-commit:
 test:
 	pytest -v .
 
-.PHONY: run-notebook
-run-notebook:
-	jupyter nbconvert --to notebook --execute --inplace notebook.ipynb
-
 .PHONY: pub
 pub:
-	$(MAKE) -C pub/ clean-and-build-html
-	$(MAKE) -C pub/ view-html
-
+	quarto render notebook.ipynb --execute
 
 .PHONY: markdown
 markdown:
