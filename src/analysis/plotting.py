@@ -58,12 +58,9 @@ def visualize_js_div_matrix(matrix_values: np.ndarray, title: str = "", js_div_z
         title=title,
         xaxis_title="Residue j",
         yaxis_title="Residue i",
-        width=800,
-        height=700,
     )
 
-    # Show the figure
-    fig.show()
+    return fig
 
 
 def compare_to_contact_map(js_div: np.ndarray, contact_map: np.ndarray, js_div_zmax: float = 0.1):
