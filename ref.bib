@@ -31,3 +31,20 @@
 	pages = {1123--1130},
 	file = {Lin et al. - 2023 - Evolutionary-scale prediction of atomic-level prot.pdf:/Users/evan/Zotero/storage/ZM24K58U/Lin et al. - 2023 - Evolutionary-scale prediction of atomic-level prot.pdf:application/pdf},
 }
+
+
+@inproceedings{salazar_masked_2020,
+	title = {Masked {Language} {Model} {Scoring}},
+	url = {http://arxiv.org/abs/1910.14659},
+	doi = {10.18653/v1/2020.acl-main.240},
+	abstract = {Pretrained masked language models (MLMs) require finetuning for most NLP tasks. Instead, we evaluate MLMs out of the box via their pseudo-log-likelihood scores (PLLs), which are computed by masking tokens one by one. We show that PLLs outperform scores from autoregressive language models like GPT-2 in a variety of tasks. By rescoring ASR and NMT hypotheses, RoBERTa reduces an end-to-end LibriSpeech model's WER by 30\% relative and adds up to +1.7 BLEU on state-of-the-art baselines for low-resource translation pairs, with further gains from domain adaptation. We attribute this success to PLL's unsupervised expression of linguistic acceptability without a left-to-right bias, greatly improving on scores from GPT-2 (+10 points on island effects, NPI licensing in BLiMP). One can finetune MLMs to give scores without masking, enabling computation in a single inference pass. In all, PLLs and their associated pseudo-perplexities (PPPLs) enable plug-and-play use of the growing number of pretrained MLMs; e.g., we use a single cross-lingual model to rescore translations in multiple languages. We release our library for language model scoring at https://github.com/awslabs/mlm-scoring.},
+	urldate = {2024-12-17},
+	booktitle = {Proceedings of the 58th {Annual} {Meeting} of the {Association} for {Computational} {Linguistics}},
+	author = {Salazar, Julian and Liang, Davis and Nguyen, Toan Q. and Kirchhoff, Katrin},
+	year = {2020},
+	note = {arXiv:1910.14659 [cs]},
+	keywords = {Computer Science - Computation and Language, Computer Science - Machine Learning, Electrical Engineering and Systems Science - Audio and Speech Processing, Statistics - Machine Learning},
+	pages = {2699--2712},
+	annote = {Comment: ACL 2020 camera-ready (presented July 2020)},
+	file = {Preprint PDF:/Users/evan/Zotero/storage/Z2D5LDGK/Salazar et al. - 2020 - Masked Language Model Scoring.pdf:application/pdf;Snapshot:/Users/evan/Zotero/storage/Q886K5JW/1910.html:text/html},
+}
