@@ -24,7 +24,7 @@ def get_plotly_colorscale(name):
     return [(i / 255.0, mcolors.rgb2hex(cmap(i / 255.0))) for i in range(256)]
 
 
-def visualize_js_div_matrix(matrix_values: np.ndarray, title: str = "", js_div_zmax: float = 0.2):
+def visualize_js_div_matrix(matrix_values: np.ndarray, js_div_zmax: float = 0.2):
     """Plots a heatmap of the Jenson-Shannon (JS) divergence.
 
     Args:
@@ -55,7 +55,6 @@ def visualize_js_div_matrix(matrix_values: np.ndarray, title: str = "", js_div_z
 
     # Update the layout and axes
     fig.update_layout(
-        title=title,
         xaxis_title="Residue j",
         yaxis_title="Residue i",
     )
@@ -85,7 +84,7 @@ def compare_to_contact_map(js_div: np.ndarray, contact_map: np.ndarray, js_div_z
         go.Heatmap(
             z=z_lower,
             colorscale=get_plotly_colorscale("verde"),
-            colorbar=dict(title="Contact map", x=1.15),
+            colorbar=dict(title="Contact map", x=1.25),
             showscale=True,
             zauto=True,
             zsmooth=False,
@@ -96,7 +95,7 @@ def compare_to_contact_map(js_div: np.ndarray, contact_map: np.ndarray, js_div_z
         go.Heatmap(
             z=z_upper,
             colorscale=get_plotly_colorscale("sages"),
-            colorbar=dict(title="JS-divergence", x=0.95),
+            colorbar=dict(title="JS-divergence", x=1.05),
             showscale=True,
             zauto=False,
             zmax=js_div_zmax,

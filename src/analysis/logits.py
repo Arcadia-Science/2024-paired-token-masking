@@ -35,8 +35,6 @@ def calculate_or_load_logits(config: LogitsConfig):
                     all_single_logits, config.single_masks
                 )
             print(f"Finished single mask inference with {model.value}...")
-        else:
-            print(f"Single mask library already loaded for {model.value}. Skipping.")
 
         if model not in double_logits:
             with app.run(show_progress=False):
@@ -52,8 +50,6 @@ def calculate_or_load_logits(config: LogitsConfig):
                     all_double_logits, config.double_masks
                 )
             print(f"Finished double mask inference with {model.value}...")
-        else:
-            print(f"Double mask library already loaded for {model.value}. Skipping.")
 
         np.savez(config.single_logits_path, **{k.value: v for k, v in single_logits.items()})
         np.savez(config.double_logits_path, **{k.value: v for k, v in double_logits.items()})
