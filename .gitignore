@@ -79,3 +79,5 @@ venv/
 # Nextflow related folders and files
 .nextflow*
 work/
+
+/.quarto/

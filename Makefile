@@ -22,7 +22,7 @@ test:
 
 .PHONY: pub
 pub:
-	quarto render notebook.ipynb --execute
+	quarto render --execute
 
 .PHONY: markdown
 markdown:

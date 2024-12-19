@@ -1,0 +1,34 @@
+project:
+  type: website
+  output-dir: _site
+website:
+  title: "Arcadia Science"
+  navbar:
+    left:
+      - href: notebook.ipynb
+format:
+  html:
+    toc: true
+    smooth-scroll: true
+    embed-resources: true
+    css: styles.css
+    comments:
+      giscus:
+        repo: Arcadia-Science/2024-paired-token-masking
+        repo-id: R_kgDOM-DX6A
+        category: Announcements
+        category-id: DIC_kwDOM-DX6M4ClWWU
+        mapping: pathname
+        reactions-enabled: true
+        input-position: top
+        theme:
+          light: light
+          dark: dark_dimmed
+        loading: lazy
+    other-links:
+      - text: Arcadia Science
+        href: https://www.arcadiascience.com/
+    code-links:
+      - text: GitHub Repo
+        icon: file-code
+        href: https://github.com/Arcadia-Science/2024-paired-token-masking
