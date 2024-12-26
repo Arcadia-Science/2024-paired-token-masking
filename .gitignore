@@ -80,4 +80,6 @@ venv/
 .nextflow*
 work/
 
+# Quarto
 /.quarto/
+/_site/

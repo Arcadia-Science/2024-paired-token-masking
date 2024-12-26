@@ -23,9 +23,3 @@ test:
 .PHONY: pub
 pub:
 	quarto render --execute
-
-.PHONY: markdown
-markdown:
-	jupyter nbconvert --to markdown notebook.ipynb --config nbconvert_config.py
-	zip -r notebook.zip notebook.md notebook_files/
-	rm -rf notebook.md notebook_files/

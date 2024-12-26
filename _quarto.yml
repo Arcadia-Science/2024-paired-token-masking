@@ -1,34 +1,55 @@
 project:
   type: website
-  output-dir: _site
+  resources:
+    - "assets/*"
+execute:
+  freeze: auto
 website:
+  favicon: assets/logo_white.png # https://quarto.org/docs/websites/website-tools.html#favicon
+  twitter-card: true # https://quarto.org/docs/websites/website-tools.html#twitter-cards
+  open-graph: true # https://quarto.org/docs/websites/website-tools.html#open-graph
   title: "Arcadia Science"
   navbar:
+    title: false
     left:
-      - href: notebook.ipynb
+      - text: "{{< iconify qlementine-icons:version-control-16 >}}"
+        menu:
+          - text: latest
+            href: index.ipynb
+      - text: Paired residue prediction dependencies in ESM2
+        href: index.ipynb
+    right:
+      - text: FAQ
+        href: faq.qmd
+    tools:
+      - icon: twitter-x
+        href: https://twitter.com/arcadiascience
+      - icon: github
+        href: https://github.com/Arcadia-Science/2024-paired-token-masking
+    logo: assets/logo_text.png
+    logo-href: https://www.arcadiascience.com/
+    background: white
+    search: true
+  page-footer:
+    background: "#484B50"
+    border: false
+    left: |
+      [![](assets/logo_white.png){fig-alt="Arcadia-Science" width=65px}](https://www.arcadiascience.com/)
+      Copyright 2024, Arcadia Science
+    right:
+      - icon: twitter-x
+        href: https://twitter.com/arcadiascience
+      - icon: github
+        href: https://github.com/Arcadia-Science/2024-paired-token-masking
 format:
   html:
+    include-in-header:
+      file: assets/logo-animation.html
+    css: assets/styles.css
+    page-layout: article
+    title-block-banner: true
     toc: true
-    smooth-scroll: true
-    embed-resources: true
-    css: styles.css
-    comments:
-      giscus:
-        repo: Arcadia-Science/2024-paired-token-masking
-        repo-id: R_kgDOM-DX6A
-        category: Announcements
-        category-id: DIC_kwDOM-DX6M4ClWWU
-        mapping: pathname
-        reactions-enabled: true
-        input-position: top
-        theme:
-          light: light
-          dark: dark_dimmed
-        loading: lazy
-    other-links:
-      - text: Arcadia Science
-        href: https://www.arcadiascience.com/
-    code-links:
-      - text: GitHub Repo
-        icon: file-code
-        href: https://github.com/Arcadia-Science/2024-paired-token-masking
+comments:
+  giscus:
+    repo: Arcadia-Science/2024-paired-token-masking
+    input-position: top
