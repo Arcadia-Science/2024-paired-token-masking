@@ -20,6 +20,10 @@ pre-commit:
 test:
 	pytest -v .
 
-.PHONY: pub
+.PHONY: execute
 pub:
 	quarto render --execute
+
+.PHONY: preview
+pub:
+	quarto preview
