@@ -1,0 +1,38 @@
+<!-- logo-animation.html -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const brandLink = document.querySelector(".navbar-brand");
+    const logoImg = brandLink.querySelector("img.navbar-logo");
+    const video = document.createElement("video");
+
+    video.classList.add("navbar-logo", "video-logo");
+    video.autoplay = true;
+    video.muted = true;
+    video.playsInline = true;
+    video.loop = false;
+    video.playbackRate = 0.8;
+
+    const source = document.createElement("source");
+
+    source.src = "./assets/logo_movie.mp4";
+    source.type = "video/mp4";
+    video.appendChild(source);
+
+    // Add hover event listener to restart video
+    brandLink.addEventListener("mouseenter", function () {
+      if (video.ended) {
+        video.currentTime = 0;
+        video.playbackRate = 3.0;
+        video.play();
+      }
+    });
+
+    video.addEventListener("error", function () {
+      console.error("Video playback error");
+      logoImg.style.visibility = "visible";
+      video.remove();
+    });
+
+    brandLink.appendChild(video);
+  });
+</script>
