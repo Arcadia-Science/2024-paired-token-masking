@@ -21,9 +21,9 @@ test:
 	pytest -v .
 
 .PHONY: execute
-pub:
+execute:
 	quarto render --execute
 
 .PHONY: preview
-pub:
+preview:
 	quarto preview
