@@ -1,46 +1,54 @@
 project:
   type: website
+  render:
+  - '*.qmd'
+  - '*.ipynb'
   resources:
-    - "assets/*"
+  - assets/*
 execute:
   freeze: auto
 website:
-  favicon: assets/logo_white.png # https://quarto.org/docs/websites/website-tools.html#favicon
-  twitter-card: true # https://quarto.org/docs/websites/website-tools.html#twitter-cards
-  open-graph: true # https://quarto.org/docs/websites/website-tools.html#open-graph
-  title: "Arcadia Science"
+  favicon: assets/logo_white.png
+  twitter-card: true
+  open-graph: true
   navbar:
+    pinned: false
     title: false
     left:
-      - text: "{{< iconify qlementine-icons:version-control-16 >}}"
-        menu:
-          - text: latest
-            href: index.ipynb
-      - text: Paired residue prediction dependencies in ESM2
+    - text: Publication
+      href: index.ipynb
+    - text: '{{< iconify qlementine-icons:version-control-16 >}}'
+      menu:
+      - text: v01 (latest)
         href: index.ipynb
-    right:
-      - text: FAQ
-        href: faq.qmd
+    - text: FAQ
+      href: FAQ.qmd
+    - text: Reproduce
+      href: SETUP.qmd
+    - text: Contribute
+      href: CONTRIBUTING.qmd
     tools:
-      - icon: twitter-x
-        href: https://twitter.com/arcadiascience
-      - icon: github
-        href: https://github.com/Arcadia-Science/2024-paired-token-masking
+    - icon: twitter-x
+      href: https://twitter.com/arcadiascience
+    - icon: github
+      href: https://github.com/{{< var pub.org >}}/{{< var pub.repo >}}
     logo: assets/logo_text.png
     logo-href: https://www.arcadiascience.com/
     background: white
     search: true
   page-footer:
-    background: "#484B50"
+    background: '#484B50'
     border: false
-    left: |
-      [![](assets/logo_white.png){fig-alt="Arcadia-Science" width=65px}](https://www.arcadiascience.com/)
+    left: '[![](assets/logo_white.png){fig-alt="Arcadia-Science" width=65px}](https://www.arcadiascience.com/)
+
       Copyright 2024, Arcadia Science
+
+      '
     right:
-      - icon: twitter-x
-        href: https://twitter.com/arcadiascience
-      - icon: github
-        href: https://github.com/Arcadia-Science/2024-paired-token-masking
+    - icon: twitter-x
+      href: https://twitter.com/arcadiascience
+    - icon: github
+      href: https://github.com/Arcadia-Science
 format:
   html:
     include-in-header:
@@ -49,7 +57,13 @@ format:
     page-layout: article
     title-block-banner: true
     toc: true
+    toc-expand: 2
 comments:
   giscus:
     repo: Arcadia-Science/2024-paired-token-masking
     input-position: top
+reference-location: margin
+bibliography: ref.bib
+csl: assets/arcadia.csl
+code-annotations: hover
+html-table-processing: none

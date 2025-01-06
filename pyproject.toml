@@ -1,6 +1,6 @@
 [project]
 name = "paired-masked-tokens"
-description = "TODO: Tool description"
+description = "Python project for notebook publication."
 version = "0.0.0"
 readme = "README.md"
 requires-python = ">=3.12"

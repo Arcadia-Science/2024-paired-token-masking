@@ -1,4 +1,5 @@
 :root {
+    --arcadia-logo-size: 2rem;
     /* Colors */
     --arcadia-black: #09090a;
     --arcadia-black-50: #09090a7f;
@@ -17,15 +18,54 @@
     /* Fonts */
     --nb-header-font-family: "Georgia";
     --nb-header-font-weight: 100;
-    --nb-header-font-size: 2rem;
+    --nb-h1-font-size: 2.5rem;
+    --nb-h2-font-size: 2rem;
+    --nb-toc-title-font-size: 1.2rem; 
     --nb-main-text-font-family: "Helvetica Neue";
-    --nb-banner-title-font-family: 'Helvetica Neue';
+    --nb-banner-title-font-family: 'Helvetica Neue'; 
+    --bs-code-color: var(--arcadia-forest);
+    --bs-code-bg-color: #f6f6f6;
+    --bs-code-border-color: #e6e6e6;
+    --bs-code-left-border-color: #003B4F99;
+    --bs-link-color-rgb: var(--arcadia-forest);
+}
+
+/* match striped table off-color with code background color */
+.table {
+    --bs-table-striped-bg: var(--bs-code-bg-color);
 }
 
 .navbar {
+    --bs-navbar-brand-padding-y: 1rem;
+    --bs-nav-link-font-size: 1.2rem;
     background-color: var(--arcadia-white) !important;
 }
 
+.navbar-nav .nav-item {
+    margin: 0 0.25rem;
+}
+
+.menu-text {
+    position: relative;
+    display: inline-block;
+    font-family: var(--nb-header-font-family);
+}
+
+.menu-text::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: currentColor;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.menu-text:hover::after {
+    opacity: 1;
+}
 
 li.nav-item.dropdown {
     display: flex;
@@ -35,17 +75,12 @@ li.nav-item.dropdown {
 [aria-labelledby="nav-menu-iconify-qlementine-iconsversion-control-16-"].dropdown-menu {
     top: 100%;
     transform: none;
-    margin-top: 0.3rem;  /* Add some spacing between toggle and menu */
+    margin-top: 0.3rem;  /* Add some spacing between icon and dropdown */
 }
 
+/* Padding around version icon */
 #nav-menu-iconify-qlementine-iconsversion-control-16- {
   padding: 0.2rem 0.2rem 0.2rem 0.2rem;
-}
-
-/* italicize title on navbar */
-.nav-link[href$="index.html"] .menu-text,
-.nav-link[data-original-href$="index.html"] .menu-text {
-    font-style: italic;
 }
 
 .navbar-brand {
@@ -54,13 +89,13 @@ li.nav-item.dropdown {
 }
 
 .navbar-logo {
-  max-height: 40px;
+  max-height: var(--arcadia-logo-size);
   width: auto;
   display: block;
 }
 
 .navbar-logo.video-logo {
-  max-height: 40px;
+  max-height: var(--arcadia-logo-size);
   position: absolute;
   top: 0;
   left: 0;
@@ -87,31 +122,99 @@ li.nav-item.dropdown {
 .quarto-title-banner h1 {
     color: var(--arcadia-white) !important;
     font-family: var(--nb-banner-title-font-family) !important;
-    font-weight: 100 !important;
+    font-weight: 100 !important; 
     font-size: 2.5rem;
 }
 
 .quarto-title-meta {
-    background-color: var(--arcadia-light-grey);
-    padding: 2em;
+    background-image: url("./seed_growth.png");
+    background-size: contain;
+    background-position: right;
+    background-repeat: no-repeat;
+    background-color: var(--bs-code-bg-color);
+    padding: 1em 2em 0em 2em;
+    margin-top: 2rem;
+    border-radius: 8px 8px 0px 0px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: none;
 }
+
+.abstract {
+    background-color: var(--bs-code-bg-color);
+    padding: 1rem 2rem 1.5rem 2rem;
+    border-radius: 0px 0px 8px 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: none;
+}
+
+.abstract .block-title {
+  margin-bottom: 0.2rem;
+  margin-top: 0 !important;
+}
+
+.abstract p {
+  line-height: 1.6;
+  margin: 0;
+}
+
 
 #quarto-header.headroom--pinned,
 #quarto-header.headroom--not-top,
-#quarto-header.headroom--not-bottom {
-    border-bottom: 1px solid black;
+#quarto-header.headroom--not-bottom,
+#quarto-header.fixed-top {
+    border-bottom: 1.5px solid black;
 }
 
-/* Section headers */
-h2 {
-    font-family: var(--nb-header-font-family), serif !important;
-    font-weight: var(--nb-header-font-weight) !important;
-    font-size: var(--nb-header-font-size);
+#toc-title {
+  font-family: var(--nb-header-font-family);
+  font-size: var(--nb-toc-title-font-size);
+  font-weight: 150;
+}
+
+.sidebar nav[role=doc-toc] ul>li>a.active, .sidebar nav[role=doc-toc] ul>li>ul>li>a.active {
+    border-left: 2px solid var(--arcadia-forest);
+    color: var(--arcadia-forest) !important;
+    font-weight: 500;
+}
+
+.sidebar nav[role=doc-toc] ul>li>a:hover,
+.sidebar nav[role=doc-toc] ul>li>ul>li>a:hover {
+    border-left: 2px solid var(--arcadia-forest);
+    color: var(--arcadia-forest) !important;
+    opacity: 0.8;  /* Makes it slightly faded */
+    transition: all 0.2s ease;  /* Smooth transition */
+}
+
+h1, h2 {
+    font-family: var(--nb-header-font-family) !important;
+    font-weight: var(--nb-header-font-weight) !important; 
     color: var(--arcadia-black);
 }
 
+h3 {
+    font-family: var(--nb-main-text-font-family) !important;
+    font-weight: 400 !important; 
+} 
+
+h2 {
+    font-size: var(--nb-h2-font-size);
+}
+
+h1 {
+    font-size: var(--nb-h1-font-size);
+}
+
 #quarto-appendix.default .quarto-appendix-heading {
-    font-size: var(--nb-header-font-size) !important;
+    font-size: var(--nb-h2-font-size) !important;
+}
+
+/* Add small vspace between paragraphs of a multi-paragraph footnote */
+.column-margin.column-container [id^="fn"] > p + p {
+  margin-top: 0.5em !important;
+}
+/* Space after last paragraph */
+.column-margin.column-container [id^="fn"] > p:last-child {
+  margin-bottom: 1.5em !important;
 }
 
 body {
@@ -119,6 +222,36 @@ body {
     color: var(--arcadia-black);
 }
 
+/* Defines code background */
+.code-annotation-gutter, .code-annotation-gutter-bg {
+    background-color: var(--bs-code-bg-color) !important;
+}
+div.sourceCode {
+    background-color: var(--bs-code-bg-color) !important;
+    border-radius: 4px;
+    border-style: inset;
+    border: 1px solid var(--bs-code-border-color);
+    padding: 0.6em;
+    padding-left: 0.2em;
+    position: relative;  /* For absolute positioning of pseudo-element */
+}
+
+div.sourceCode::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: var(--bs-code-border-color);
+    transition: width 0.2s ease,
+                background-color 0.2s ease;
+}
+
+div.sourceCode:hover::before {
+    width: 5px;
+    background-color: var(--bs-code-left-border-color);
+}
 
 /* Footer styling */
 .footer {
