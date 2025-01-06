@@ -37,27 +37,31 @@ pip install -e .
 
 ## Modify
 
-To modify or extend any analyses, open up `notebook.ipynb` with Jupyter:
+To modify or extend any analyses, open up `index.ipynb` with Jupyter or your favorite IDE:
 
 ```bash
-jupyter-lab notebook.ipynb
+jupyter-lab index.ipynb
 ```
 
-## Generate
+## Preview
 
-First, consider executing the notebook to create a clean copy. This will run your notebook from top to bottom, ensuring there are no out-of-order variables and that the cell numbers are sequential:
+To create a live preview of your pub, run the following:
 
 ```bash
-make run-notebook
+make preview
 ```
 
-To generate a local copy of the publication:
+This will open a local copy of the publication in your default browser. The command watches for changes such that whenever `index.ipynb` is saved, the publication is re-rendered.
 
-```bash
-make pub
+## Publish
+
+Publishing is handled automatically with a GitHub Action whenever a pull request is merged into the `main` branch.However, it is important to note that the action doesn't run the notebook. Instead, the action relies on the user to have run the notebook locally. Thus, it is the user's responsibility to execute the notebook with:
+
+```
+make execute
 ```
 
-A new tab in your browser will pop up with a local version of the publication.
+Then, `index.ipynb` and any runtime artefacts generated in `_freeze/` should be committed and pushed to the branch. Using these artefacts, the GitHub Action is able to render the publication when the branch is merged, circumventing the need to execute the notebook server side. For more information about this workflow, see Quarto's documentation on publishing with Github Actions [here](https://quarto.org/docs/publishing/github-pages.html#github-action).
 
 ## Data
 

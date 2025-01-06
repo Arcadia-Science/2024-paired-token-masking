@@ -96,7 +96,6 @@ class ESMMaskedPrediction:
         self,
         sequence: str,
         masked_positions: list[tuple[int, ...]],
-        max_length: int = 512,
     ) -> np.ndarray:
         """Calculates the logits for masked positions in a sequence.
 
@@ -107,8 +106,6 @@ class ESMMaskedPrediction:
                 A list of tuples, where each tuple contains positions (ints) in the
                 sequence to be masked. Each tuple corresponds to a separate observation
                 in the batch.
-            max_length:
-                The maximum sequence length. Sequences longer than this will be truncated.
 
         Returns:
             np.ndarray:
@@ -120,9 +117,8 @@ class ESMMaskedPrediction:
         tokenized_sequence = self.tokenizer(
             sequence,
             return_tensors="pt",
-            padding=True,
             truncation=True,
-            max_length=max_length,
+            max_length=len(sequence) + 2,  # Leave room for CLS and EOS tokens
         )
 
         input_ids = tokenized_sequence["input_ids"].to("cuda")
@@ -134,7 +130,8 @@ class ESMMaskedPrediction:
         # Apply mask tokens in batch for each pair of positions
         for batch_idx, mask_positions in enumerate(masked_positions):
             for pos in mask_positions:
-                input_ids[batch_idx, pos] = self.tokenizer.mask_token_id
+                # Add 1 to account for prepended CLS token
+                input_ids[batch_idx, pos + 1] = self.tokenizer.mask_token_id
 
         with torch.no_grad():
             outputs = self.model(input_ids=input_ids, attention_mask=attention_mask)
@@ -155,7 +152,6 @@ def predict(
     gpu: str,
     num_gpus: int,
     batch_size: int,
-    max_length: int,
 ) -> np.ndarray:
     """Calculates masked position probabilities by delegating to `ESMMaskedPrediction`.
 
@@ -176,8 +172,6 @@ def predict(
             The number of GPU workers to spawn.
         batch_size:
             The number of masked position tuples to process in each batch.
-        max_length:
-            The maximum sequence length for tokenization.
 
     Returns:
         np.ndarray:
@@ -208,7 +202,7 @@ def predict(
     batch_jobs = []
     for idx in range(0, len(masked_positions), batch_size):
         batch = masked_positions[idx : idx + batch_size]
-        batch_job = esm_masked_prediction.predict.spawn(sequence, batch, max_length)
+        batch_job = esm_masked_prediction.predict.spawn(sequence, batch)
         batch_jobs.append(batch_job)
 
     console.print("Gathering results...")
