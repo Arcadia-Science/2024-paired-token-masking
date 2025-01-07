@@ -29,7 +29,6 @@ def visualize_js_div_matrix(matrix_values: np.ndarray, js_div_zmax: float = 0.2)
 
     Args:
         matrix_values: The square matrix of JS-divergence values.
-        title: A title for the plot.
         js_div_zmax:
             The JS-divergence value that corresponds to the highest color value. All
             JS-divergence values above this will be floored to this color.
@@ -57,6 +56,7 @@ def visualize_js_div_matrix(matrix_values: np.ndarray, js_div_zmax: float = 0.2)
     fig.update_layout(
         xaxis_title="Residue j",
         yaxis_title="Residue i",
+        margin=dict(b=50),
     )
 
     return fig
@@ -104,7 +104,6 @@ def compare_to_contact_map(js_div: np.ndarray, contact_map: np.ndarray, js_div_z
     )
 
     fig.update_layout(
-        title="Heatmaps of JS-divergence and structural contact map",
         xaxis=dict(title="Position i", constrain="domain"),
         yaxis=dict(title="Position j", constrain="domain", scaleanchor="x", scaleratio=1),
         width=900,
