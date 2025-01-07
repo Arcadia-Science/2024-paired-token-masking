@@ -217,6 +217,10 @@ h1 {
   margin-bottom: 1.5em !important;
 }
 
+.quarto-figure-center>figure>p, .quarto-figure-center>figure>div {
+    text-align: left;
+}
+
 body {
     font-family: var(--nb-main-text-font-family);
     color: var(--arcadia-black);
@@ -251,6 +255,25 @@ div.sourceCode::before {
 div.sourceCode:hover::before {
     width: 5px;
     background-color: var(--bs-code-left-border-color);
+}
+
+/* Force CSS grid to contain figures according to their column specs */
+.page-columns .column-body,
+.page-columns .column-body-outset,
+.page-columns .column-body-inset,
+.page-columns .column-page,
+.page-columns .column-page-inset,
+.page-columns .column-page-outset,
+.page-columns .column-screen,
+.page-columns .column-screen-inset {
+    width: 100%;
+    height: auto;
+}
+
+body .page-columns {
+    display: grid;
+    gap: 0;
+    grid-template-columns: [screen-start] 1.5em [screen-start-inset] 3fr [page-start page-start-inset] 300px [body-start-outset] 35px [body-start] 1.5em [body-content-start] minmax(500px, calc(850px - 3em)) [body-content-end] 1.5em [body-end] 35px [body-end-outset] minmax(75px, 145px) [page-end-inset] 300px [page-end] 3fr [screen-end-inset] 1.5em [screen-end];
 }
 
 /* Footer styling */

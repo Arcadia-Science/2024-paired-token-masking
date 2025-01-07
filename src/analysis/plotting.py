@@ -56,7 +56,7 @@ def visualize_js_div_matrix(matrix_values: np.ndarray, js_div_zmax: float = 0.2)
     fig.update_layout(
         xaxis_title="Residue j",
         yaxis_title="Residue i",
-        margin=dict(b=50),
+        margin=dict(b=70),
     )
 
     return fig
