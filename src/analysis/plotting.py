@@ -15,11 +15,16 @@ import plotly.io as pio
 
 pio.renderers.default = "notebook"
 
+blue_palette_6 = apc.palettes.blue_shades.reverse()
+blue_palette_6.colors.insert(1, apc.HexCode("audrey", "#a2d1ed"))
 
-def get_plotly_colorscale(name):
+
+def get_plotly_colorscale(name, reverse: bool = False):
     gradient = next(
         iter(gradient for gradient in apc.gradients.all_gradients if gradient.name == name)
     )
+    if reverse:
+        gradient = gradient.reverse()
     cmap = gradient.to_mpl_cmap()
     return [(i / 255.0, mcolors.rgb2hex(cmap(i / 255.0))) for i in range(256)]
 
@@ -43,7 +48,7 @@ def visualize_js_div_matrix(matrix_values: np.ndarray, js_div_zmax: float = 0.2)
         z=np.swapaxes(matrix_values, 0, 1),
         x=indices,
         y=indices,
-        colorscale=get_plotly_colorscale("sages"),
+        colorscale=get_plotly_colorscale("sages", reverse=True),
         colorbar=dict(title="JS-divergence"),
         showscale=True,
         zauto=False,
@@ -83,7 +88,7 @@ def compare_to_contact_map(js_div: np.ndarray, contact_map: np.ndarray, js_div_z
     fig.add_trace(
         go.Heatmap(
             z=z_lower,
-            colorscale=get_plotly_colorscale("verde"),
+            colorscale=get_plotly_colorscale("oranges", reverse=True),
             colorbar=dict(title="Contact map", x=1.25),
             showscale=True,
             zauto=True,
@@ -94,7 +99,7 @@ def compare_to_contact_map(js_div: np.ndarray, contact_map: np.ndarray, js_div_z
     fig.add_trace(
         go.Heatmap(
             z=z_upper,
-            colorscale=get_plotly_colorscale("sages"),
+            colorscale=get_plotly_colorscale("sages", reverse=True),
             colorbar=dict(title="JS-divergence", x=1.05),
             showscale=True,
             zauto=False,
