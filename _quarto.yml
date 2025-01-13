@@ -5,6 +5,7 @@ project:
   - '*.ipynb'
   resources:
   - assets/*
+  - authors.yml
 execute:
   freeze: auto
 website:
@@ -12,15 +13,17 @@ website:
   twitter-card: true
   open-graph: true
   navbar:
+    collapse-below: xl
     pinned: false
     title: false
     left:
-    - text: Publication
-      href: index.ipynb
     - text: '{{< iconify qlementine-icons:version-control-16 >}}'
       menu:
       - text: v01 (latest)
         href: index.ipynb
+    - text: '{{< iconify nrk:back >}} Back to Pub'
+      href: index.ipynb
+    right:
     - text: FAQ
       href: FAQ.qmd
     - text: Reproduce
@@ -33,7 +36,7 @@ website:
     - icon: github
       href: https://github.com/{{< var pub.org >}}/{{< var pub.repo >}}
     logo: assets/logo_text.png
-    logo-href: https://www.arcadiascience.com/
+    logo-href: https://research.arcadiascience.com/
     background: white
     search: true
   page-footer:
@@ -41,7 +44,7 @@ website:
     border: false
     left: '[![](assets/logo_white.png){fig-alt="Arcadia-Science" width=65px}](https://www.arcadiascience.com/)
 
-      Copyright 2024, Arcadia Science
+      Copyright 2025, Arcadia Science
 
       '
     right:
@@ -49,11 +52,18 @@ website:
       href: https://twitter.com/arcadiascience
     - icon: github
       href: https://github.com/Arcadia-Science
+  google-analytics: "{{< var pub.google_analytics >}}"
+  cookie-consent:
+    type: implied
+    style: simple
 format:
   html:
     include-in-header:
-      file: assets/logo-animation.html
-    css: assets/styles.css
+      - file: assets/logo-animation.html
+      - file: assets/author-reveal.html
+      - file: assets/mini-title.html
+      - file: assets/version-in-title.html
+    css: assets/css/main.css
     page-layout: article
     title-block-banner: true
     toc: true
