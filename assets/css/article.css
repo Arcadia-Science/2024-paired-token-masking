@@ -21,7 +21,7 @@ h1 {
     font-size: var(--nb-h2-font-size) !important;
 }
 
-.quarto-figure-center>figure>p, .quarto-figure-center>figure>div {
+.quarto-figure-center>figure>p {
     text-align: left;
 }
 
@@ -59,6 +59,12 @@ div.sourceCode::before {
 div.sourceCode:hover::before {
     width: 5px;
     background-color: var(--bs-code-left-border-color);
+}
+
+/* This preserves aspect ratio of figures */
+.quarto-layout-cell img {
+    max-width: 100%;
+    height: auto;
 }
 
 /* Callout colors */
