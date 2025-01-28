@@ -49,7 +49,11 @@ def visualize_js_div_matrix(matrix_values: np.ndarray, js_div_zmax: float = 0.2)
         x=indices,
         y=indices,
         colorscale=get_plotly_colorscale("sages", reverse=True),
-        colorbar=dict(title="JS-divergence"),
+        colorbar=dict(
+            title="JS-divergence",
+            tick0=0,
+            dtick=0.02,
+        ),
         showscale=True,
         zauto=False,
         zmax=js_div_zmax,
@@ -62,6 +66,29 @@ def visualize_js_div_matrix(matrix_values: np.ndarray, js_div_zmax: float = 0.2)
         xaxis_title="Residue j",
         yaxis_title="Residue i",
         margin=dict(b=70),
+        xaxis_title_font=dict(
+            family="Helvetica Neue",
+        ),
+        xaxis_tickfont=dict(
+            family="Courier New",
+        ),
+        yaxis_title_font=dict(
+            family="Helvetica Neue",
+        ),
+        yaxis_tickfont=dict(
+            family="Courier New",
+        ),
+    )
+
+    fig.update_traces(
+        colorbar=dict(
+            titlefont=dict(
+                family="Helvetica Neue",
+            ),
+            tickfont=dict(
+                family='Courier New',
+            )
+        )
     )
 
     return fig
@@ -113,6 +140,32 @@ def compare_to_contact_map(js_div: np.ndarray, contact_map: np.ndarray, js_div_z
         yaxis=dict(title="Position j", constrain="domain", scaleanchor="x", scaleratio=1),
         width=900,
         height=700,
+        xaxis_title="Residue j",
+        yaxis_title="Residue i",
+        margin=dict(b=70),
+        xaxis_title_font=dict(
+            family="Helvetica Neue",
+        ),
+        xaxis_tickfont=dict(
+            family="Courier New",
+        ),
+        yaxis_title_font=dict(
+            family="Helvetica Neue",
+        ),
+        yaxis_tickfont=dict(
+            family="Courier New",
+        ),
+    )
+
+    fig.update_traces(
+        colorbar=dict(
+            titlefont=dict(
+                family="Helvetica Neue",
+            ),
+            tickfont=dict(
+                family='Courier New',
+            )
+        )
     )
 
     fig.show()
