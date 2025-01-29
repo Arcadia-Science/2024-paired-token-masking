@@ -1,7 +1,7 @@
 on:
   workflow_dispatch:
   push:
-    branches: ek/styling
+    branches: publish
 
 name: Quarto Publish
 
