@@ -19,20 +19,18 @@ authors:
     orcid: 0000-0002-6473-0921
     roles:
       - conceptualization
-      - formal analysis
-      - investigation
-      - methodology
       - software
-      - writing
+      - formal analysis
+      - methodology
       - visualization
+      - writing
+      - investigation
   - name: Brae M. Bigge
     orcid: 0000-0002-0907-4597
     roles:
       - supervision
-      - editing
   - name: Keith Cheveralls
     orcid: 0000-0002-4157-6087
     roles:
+      - validation
       - critical feedback
-      - software
-      - editing
