@@ -169,6 +169,12 @@ cookieconsent.run({
   });
 
   require(['js-yaml'], function (jsyaml) {
+    // Function to get last name from full name
+    function getLastName(fullName) {
+      const nameParts = fullName.trim().split(' ');
+      return nameParts[nameParts.length - 1];
+    }
+
     // Function to load the YAML file
     async function loadAuthorData() {
       try {
@@ -193,8 +199,11 @@ cookieconsent.run({
       // Get the authors content div from the cloned template
       const authorsContent = authorsSection.querySelector('.authors-content');
 
+      // Update sort to use last name
       const sortedAuthors = [...authorData.authors].sort((a, b) => {
-        return a.name.localeCompare(b.name);
+        const lastNameA = getLastName(a.name);
+        const lastNameB = getLastName(b.name);
+        return lastNameA.localeCompare(lastNameB);
       });
 
       // Process authors from the data
@@ -234,7 +243,6 @@ cookieconsent.run({
             theme: 'custom'
           });
         }
-
       });
 
       // Create container and insert at the beginning of title meta
@@ -274,12 +282,11 @@ cookieconsent.run({
           <img src="./assets/logo_white.png" alt="Logo">
         </a>
       </div>
-      <p>Paired residue prediction dependencies in ESM2</p>
+      <p></p>
       <div id="mini-version-control"></div>
     </div>
   </div>
 </template>
-
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -295,23 +302,34 @@ cookieconsent.run({
       const miniTitleContent = document.importNode(template.content, true);
       document.body.appendChild(miniTitleContent);
 
-      // Clone version control dropdown if it exists
-      const originalDropdown = document.querySelector('.navbar-nav .nav-item.dropdown:has(iconify-icon[icon="qlementine-icons:version-control-16"])');
-      if (originalDropdown) {
-        const clonedDropdown = originalDropdown.cloneNode(true);
-        // Remove menu-text class but keep contents
-        const menuTextSpan = clonedDropdown.querySelector('.menu-text');
-        if (menuTextSpan) {
-          menuTextSpan.classList.remove('menu-text');
-        }
-        // Add to mini version control container
-        const versionContainer = document.querySelector('#mini-version-control');
-        versionContainer.appendChild(clonedDropdown);
-        // Initialize Bootstrap dropdown
-        if (typeof bootstrap !== 'undefined') {
-          const dropdownElement = clonedDropdown.querySelector('.dropdown-toggle');
-          if (dropdownElement) {
-            new bootstrap.Dropdown(dropdownElement);
+      // Get and set the title text from h1.title
+      const titleElement = document.querySelector('h1.title');
+      const miniTitleP = document.querySelector('.mini-title-content p');
+      if (titleElement && miniTitleP) {
+        const titleText = titleElement.childNodes[0].textContent.trim();
+        miniTitleP.textContent = titleText;
+
+        // Only clone and add version control if title is not the demo title
+        if (titleText !== 'A brief syntax demo') {
+          // Clone version control dropdown if it exists
+          const originalDropdown = document.querySelector('.navbar-nav .nav-item.dropdown:has(iconify-icon[icon="qlementine-icons:version-control-16"])');
+          if (originalDropdown) {
+            const clonedDropdown = originalDropdown.cloneNode(true);
+            // Remove menu-text class but keep contents
+            const menuTextSpan = clonedDropdown.querySelector('.menu-text');
+            if (menuTextSpan) {
+              menuTextSpan.classList.remove('menu-text');
+            }
+            // Add to mini version control container
+            const versionContainer = document.querySelector('#mini-version-control');
+            versionContainer.appendChild(clonedDropdown);
+            // Initialize Bootstrap dropdown
+            if (typeof bootstrap !== 'undefined') {
+              const dropdownElement = clonedDropdown.querySelector('.dropdown-toggle');
+              if (dropdownElement) {
+                new bootstrap.Dropdown(dropdownElement);
+              }
+            }
           }
         }
       }
@@ -383,33 +401,34 @@ cookieconsent.run({
 </script>
 <!-- version-in-title.html -->
 </head><body class="nav-fixed"><div id="title-version-control"></div>
-
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     // Find the original version control dropdown
     const originalDropdown = document.querySelector('.navbar-nav .nav-item.dropdown:has(iconify-icon[icon="qlementine-icons:version-control-16"])');
-
     if (originalDropdown && document.querySelector('.quarto-title')) {
       // Clone the dropdown structure
       const clonedDropdown = originalDropdown.cloneNode(true);
-
       // Update classes
       clonedDropdown.className = 'title-version-menu dropdown';
-
       // Remove the menu-text class but keep the span and its contents
       const menuTextSpan = clonedDropdown.querySelector('.menu-text');
       if (menuTextSpan) {
         menuTextSpan.classList.remove('menu-text');
       }
-
       // Find the title element
       const titleElement = document.querySelector('.quarto-title .title');
-
       if (titleElement) {
         // Add the version control to the container
         const versionContainer = document.getElementById('title-version-control');
         versionContainer.appendChild(clonedDropdown);
         titleElement.appendChild(versionContainer);
+
+        // Check if this is the author guide and hide if it is
+        if (titleElement.childNodes[0].textContent.trim() === 'A brief syntax demo') {
+          versionContainer.style.display = 'none';
+          versionContainer.style.visibility = 'hidden';
+          versionContainer.style.pointerEvents = 'none';
+        }
 
         // Ensure Bootstrap dropdown functionality works on the clone
         if (typeof bootstrap !== 'undefined') {
@@ -512,7 +531,7 @@ cookieconsent.run({
 <h1>FAQ</h1>
 <section id="what-is-this" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-this">What is this?</h2>
-<p>This <em>notebook publication</em> uses a format we’re experimenting with that treats a scientist’s working computational analysis as the publication itself, dissolving the separation that exists between code and publication. Our hypothesis is that this lets us publish faster, promote early-stage work, and increase reproducibility. For details, see <a href="FIXME">our commentary</a> on notebook publications.</p>
+<p>This <em>notebook publication</em> uses a format we’re experimenting with that treats a scientist’s working computational analysis as the publication itself, dissolving the separation that exists between code and publication. Our hypothesis is that this lets us publish faster, promote early-stage work, and increase reproducibility. For details, see <a href="https://doi.org/10.57844/arcadia-ca21-23bb">our commentary</a> on notebook publications.</p>
 </section>
 <section id="how-can-i-comment" class="level2">
 <h2 class="anchored" data-anchor-id="how-can-i-comment">How can I comment?</h2>
@@ -520,7 +539,7 @@ cookieconsent.run({
 </section>
 <section id="where-is-the-datacode" class="level2">
 <h2 class="anchored" data-anchor-id="where-is-the-datacode">Where is the data/code?</h2>
-<p>All the code and data necessary to reproduce this publication is hosted on GitHub at <a href="https://github.com/Arcadia-Science/2024-paired-token-masking">this URL</a>.</p>
+<p>All the code and data for this publication and its analysis are hosted on GitHub at <a href="https://github.com/Arcadia-Science/2024-paired-token-masking">this URL</a>.</p>
 </section>
 <section id="how-can-i-reproduce-this" class="level2">
 <h2 class="anchored" data-anchor-id="how-can-i-reproduce-this">How can I reproduce this?</h2>

@@ -203,6 +203,12 @@ cookieconsent.run({
   });
 
   require(['js-yaml'], function (jsyaml) {
+    // Function to get last name from full name
+    function getLastName(fullName) {
+      const nameParts = fullName.trim().split(' ');
+      return nameParts[nameParts.length - 1];
+    }
+
     // Function to load the YAML file
     async function loadAuthorData() {
       try {
@@ -227,8 +233,11 @@ cookieconsent.run({
       // Get the authors content div from the cloned template
       const authorsContent = authorsSection.querySelector('.authors-content');
 
+      // Update sort to use last name
       const sortedAuthors = [...authorData.authors].sort((a, b) => {
-        return a.name.localeCompare(b.name);
+        const lastNameA = getLastName(a.name);
+        const lastNameB = getLastName(b.name);
+        return lastNameA.localeCompare(lastNameB);
       });
 
       // Process authors from the data
@@ -268,7 +277,6 @@ cookieconsent.run({
             theme: 'custom'
           });
         }
-
       });
 
       // Create container and insert at the beginning of title meta
@@ -308,12 +316,11 @@ cookieconsent.run({
           <img src="./assets/logo_white.png" alt="Logo">
         </a>
       </div>
-      <p>Paired residue prediction dependencies in ESM2</p>
+      <p></p>
       <div id="mini-version-control"></div>
     </div>
   </div>
 </template>
-
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -329,23 +336,34 @@ cookieconsent.run({
       const miniTitleContent = document.importNode(template.content, true);
       document.body.appendChild(miniTitleContent);
 
-      // Clone version control dropdown if it exists
-      const originalDropdown = document.querySelector('.navbar-nav .nav-item.dropdown:has(iconify-icon[icon="qlementine-icons:version-control-16"])');
-      if (originalDropdown) {
-        const clonedDropdown = originalDropdown.cloneNode(true);
-        // Remove menu-text class but keep contents
-        const menuTextSpan = clonedDropdown.querySelector('.menu-text');
-        if (menuTextSpan) {
-          menuTextSpan.classList.remove('menu-text');
-        }
-        // Add to mini version control container
-        const versionContainer = document.querySelector('#mini-version-control');
-        versionContainer.appendChild(clonedDropdown);
-        // Initialize Bootstrap dropdown
-        if (typeof bootstrap !== 'undefined') {
-          const dropdownElement = clonedDropdown.querySelector('.dropdown-toggle');
-          if (dropdownElement) {
-            new bootstrap.Dropdown(dropdownElement);
+      // Get and set the title text from h1.title
+      const titleElement = document.querySelector('h1.title');
+      const miniTitleP = document.querySelector('.mini-title-content p');
+      if (titleElement && miniTitleP) {
+        const titleText = titleElement.childNodes[0].textContent.trim();
+        miniTitleP.textContent = titleText;
+
+        // Only clone and add version control if title is not the demo title
+        if (titleText !== 'A brief syntax demo') {
+          // Clone version control dropdown if it exists
+          const originalDropdown = document.querySelector('.navbar-nav .nav-item.dropdown:has(iconify-icon[icon="qlementine-icons:version-control-16"])');
+          if (originalDropdown) {
+            const clonedDropdown = originalDropdown.cloneNode(true);
+            // Remove menu-text class but keep contents
+            const menuTextSpan = clonedDropdown.querySelector('.menu-text');
+            if (menuTextSpan) {
+              menuTextSpan.classList.remove('menu-text');
+            }
+            // Add to mini version control container
+            const versionContainer = document.querySelector('#mini-version-control');
+            versionContainer.appendChild(clonedDropdown);
+            // Initialize Bootstrap dropdown
+            if (typeof bootstrap !== 'undefined') {
+              const dropdownElement = clonedDropdown.querySelector('.dropdown-toggle');
+              if (dropdownElement) {
+                new bootstrap.Dropdown(dropdownElement);
+              }
+            }
           }
         }
       }
@@ -417,33 +435,34 @@ cookieconsent.run({
 </script>
 <!-- version-in-title.html -->
 </head><body class="nav-fixed"><div id="title-version-control"></div>
-
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     // Find the original version control dropdown
     const originalDropdown = document.querySelector('.navbar-nav .nav-item.dropdown:has(iconify-icon[icon="qlementine-icons:version-control-16"])');
-
     if (originalDropdown && document.querySelector('.quarto-title')) {
       // Clone the dropdown structure
       const clonedDropdown = originalDropdown.cloneNode(true);
-
       // Update classes
       clonedDropdown.className = 'title-version-menu dropdown';
-
       // Remove the menu-text class but keep the span and its contents
       const menuTextSpan = clonedDropdown.querySelector('.menu-text');
       if (menuTextSpan) {
         menuTextSpan.classList.remove('menu-text');
       }
-
       // Find the title element
       const titleElement = document.querySelector('.quarto-title .title');
-
       if (titleElement) {
         // Add the version control to the container
         const versionContainer = document.getElementById('title-version-control');
         versionContainer.appendChild(clonedDropdown);
         titleElement.appendChild(versionContainer);
+
+        // Check if this is the author guide and hide if it is
+        if (titleElement.childNodes[0].textContent.trim() === 'A brief syntax demo') {
+          versionContainer.style.display = 'none';
+          versionContainer.style.visibility = 'hidden';
+          versionContainer.style.pointerEvents = 'none';
+        }
 
         // Ensure Bootstrap dropdown functionality works on the clone
         if (typeof bootstrap !== 'undefined') {
@@ -548,7 +567,7 @@ cookieconsent.run({
 
 <section id="setup" class="level1">
 <h1>Setup</h1>
-<p>This document details how to create a local copy of this pub’s codebase and setup your compute environment. This is a prerequisite for reproducing this publication, experimenting with the analysis, or contributing a revision of this publication.</p>
+<p>This document details how to create a local copy of this pub’s codebase and setup your compute environment. This is a prerequisite for reproducing this publication, experimenting with the analysis, or contributing a revision.</p>
 <section id="obtain-local-copy" class="level2">
 <h2 class="anchored" data-anchor-id="obtain-local-copy">Obtain local copy</h2>
 <p>The codebase is hosted on GitHub and can be found <a href="https://github.com/Arcadia-Science/2024-paired-token-masking">here</a>.</p>
@@ -558,13 +577,13 @@ cookieconsent.run({
 </section>
 <section id="installation" class="level2">
 <h2 class="anchored" data-anchor-id="installation">Installation</h2>
-<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+Important
 </div>
 </div>
 <div class="callout-body-container callout-body">

@@ -203,6 +203,12 @@ cookieconsent.run({
   });
 
   require(['js-yaml'], function (jsyaml) {
+    // Function to get last name from full name
+    function getLastName(fullName) {
+      const nameParts = fullName.trim().split(' ');
+      return nameParts[nameParts.length - 1];
+    }
+
     // Function to load the YAML file
     async function loadAuthorData() {
       try {
@@ -227,8 +233,11 @@ cookieconsent.run({
       // Get the authors content div from the cloned template
       const authorsContent = authorsSection.querySelector('.authors-content');
 
+      // Update sort to use last name
       const sortedAuthors = [...authorData.authors].sort((a, b) => {
-        return a.name.localeCompare(b.name);
+        const lastNameA = getLastName(a.name);
+        const lastNameB = getLastName(b.name);
+        return lastNameA.localeCompare(lastNameB);
       });
 
       // Process authors from the data
@@ -268,7 +277,6 @@ cookieconsent.run({
             theme: 'custom'
           });
         }
-
       });
 
       // Create container and insert at the beginning of title meta
@@ -308,12 +316,11 @@ cookieconsent.run({
           <img src="./assets/logo_white.png" alt="Logo">
         </a>
       </div>
-      <p>Paired residue prediction dependencies in ESM2</p>
+      <p></p>
       <div id="mini-version-control"></div>
     </div>
   </div>
 </template>
-
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -329,23 +336,34 @@ cookieconsent.run({
       const miniTitleContent = document.importNode(template.content, true);
       document.body.appendChild(miniTitleContent);
 
-      // Clone version control dropdown if it exists
-      const originalDropdown = document.querySelector('.navbar-nav .nav-item.dropdown:has(iconify-icon[icon="qlementine-icons:version-control-16"])');
-      if (originalDropdown) {
-        const clonedDropdown = originalDropdown.cloneNode(true);
-        // Remove menu-text class but keep contents
-        const menuTextSpan = clonedDropdown.querySelector('.menu-text');
-        if (menuTextSpan) {
-          menuTextSpan.classList.remove('menu-text');
-        }
-        // Add to mini version control container
-        const versionContainer = document.querySelector('#mini-version-control');
-        versionContainer.appendChild(clonedDropdown);
-        // Initialize Bootstrap dropdown
-        if (typeof bootstrap !== 'undefined') {
-          const dropdownElement = clonedDropdown.querySelector('.dropdown-toggle');
-          if (dropdownElement) {
-            new bootstrap.Dropdown(dropdownElement);
+      // Get and set the title text from h1.title
+      const titleElement = document.querySelector('h1.title');
+      const miniTitleP = document.querySelector('.mini-title-content p');
+      if (titleElement && miniTitleP) {
+        const titleText = titleElement.childNodes[0].textContent.trim();
+        miniTitleP.textContent = titleText;
+
+        // Only clone and add version control if title is not the demo title
+        if (titleText !== 'A brief syntax demo') {
+          // Clone version control dropdown if it exists
+          const originalDropdown = document.querySelector('.navbar-nav .nav-item.dropdown:has(iconify-icon[icon="qlementine-icons:version-control-16"])');
+          if (originalDropdown) {
+            const clonedDropdown = originalDropdown.cloneNode(true);
+            // Remove menu-text class but keep contents
+            const menuTextSpan = clonedDropdown.querySelector('.menu-text');
+            if (menuTextSpan) {
+              menuTextSpan.classList.remove('menu-text');
+            }
+            // Add to mini version control container
+            const versionContainer = document.querySelector('#mini-version-control');
+            versionContainer.appendChild(clonedDropdown);
+            // Initialize Bootstrap dropdown
+            if (typeof bootstrap !== 'undefined') {
+              const dropdownElement = clonedDropdown.querySelector('.dropdown-toggle');
+              if (dropdownElement) {
+                new bootstrap.Dropdown(dropdownElement);
+              }
+            }
           }
         }
       }
@@ -417,33 +435,34 @@ cookieconsent.run({
 </script>
 <!-- version-in-title.html -->
 </head><body class="nav-fixed"><div id="title-version-control"></div>
-
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     // Find the original version control dropdown
     const originalDropdown = document.querySelector('.navbar-nav .nav-item.dropdown:has(iconify-icon[icon="qlementine-icons:version-control-16"])');
-
     if (originalDropdown && document.querySelector('.quarto-title')) {
       // Clone the dropdown structure
       const clonedDropdown = originalDropdown.cloneNode(true);
-
       // Update classes
       clonedDropdown.className = 'title-version-menu dropdown';
-
       // Remove the menu-text class but keep the span and its contents
       const menuTextSpan = clonedDropdown.querySelector('.menu-text');
       if (menuTextSpan) {
         menuTextSpan.classList.remove('menu-text');
       }
-
       // Find the title element
       const titleElement = document.querySelector('.quarto-title .title');
-
       if (titleElement) {
         // Add the version control to the container
         const versionContainer = document.getElementById('title-version-control');
         versionContainer.appendChild(clonedDropdown);
         titleElement.appendChild(versionContainer);
+
+        // Check if this is the author guide and hide if it is
+        if (titleElement.childNodes[0].textContent.trim() === 'A brief syntax demo') {
+          versionContainer.style.display = 'none';
+          versionContainer.style.visibility = 'hidden';
+          versionContainer.style.pointerEvents = 'none';
+        }
 
         // Ensure Bootstrap dropdown functionality works on the clone
         if (typeof bootstrap !== 'undefined') {
@@ -530,9 +549,7 @@ cookieconsent.run({
   <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting started</a></li>
   <li><a href="#snapshot-current-version" id="toc-snapshot-current-version" class="nav-link" data-scroll-target="#snapshot-current-version">Snapshot current version</a></li>
   <li><a href="#make-your-changes" id="toc-make-your-changes" class="nav-link" data-scroll-target="#make-your-changes">Make your changes</a></li>
-  <li><a href="#steps-before-publishing-a-revision" id="toc-steps-before-publishing-a-revision" class="nav-link" data-scroll-target="#steps-before-publishing-a-revision">Steps before publishing a revision</a></li>
-  <li><a href="#authorship" id="toc-authorship" class="nav-link" data-scroll-target="#authorship">Authorship</a></li>
-  <li><a href="#final-checks" id="toc-final-checks" class="nav-link" data-scroll-target="#final-checks">Final checks</a></li>
+  <li><a href="#steps-before-publishing" id="toc-steps-before-publishing" class="nav-link" data-scroll-target="#steps-before-publishing">Steps before publishing</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -545,14 +562,27 @@ cookieconsent.run({
 
 <section id="contributing" class="level1">
 <h1>Contributing</h1>
-<p>We welcome improvements to this publication! If you would like to improve or extend the publication, please submit a pull request. We’ll collaborate with you to incorporate your revisions.</p>
+<p>We welcome improvements to this publication! If you’d like to improve or extend the publication, please submit a pull request. We’ll collaborate with you to incorporate your revisions.</p>
 <ul>
 <li>Did you spot any mistakes?</li>
 <li>Do you think an analysis is missing?</li>
 <li>Do you think the wording could be improved?</li>
 <li>Did you spot a typo or grammatical mistake?</li>
 </ul>
-<p>These are just a few examples of revisions that we would be happy to receive from you.</p>
+<p>These are just a few examples of revisions that we’d be happy to receive from you.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To learn about how we credit external collaborators, click <a href="https://github.com/Arcadia-Science/arcadia-software-handbook/blob/main/guides-and-standards/guide--credit-for-contributions.md">here</a>.</p>
+</div>
+</div>
 <section id="getting-started" class="level2">
 <h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
 <p>If you haven’t already, follow our <a href="./SETUP.html">setup guide</a> to create a local copy of the code and compute environment.</p>
@@ -567,24 +597,16 @@ cookieconsent.run({
 <h2 class="anchored" data-anchor-id="make-your-changes">Make your changes</h2>
 <p>Edit <code>index.ipynb</code> to your liking.</p>
 </section>
-<section id="steps-before-publishing-a-revision" class="level2">
-<h2 class="anchored" data-anchor-id="steps-before-publishing-a-revision">Steps before publishing a revision</h2>
-<p>Publishing is handled automatically with a GitHub Action that triggers whenever changes are pushed to the <code>main</code> branch. This means the task of publishing your revision is equivalent to the task of merging a pull request. To merge your pull request, here’s what we’ll need from you in addition to your content changes.</p>
-</section>
-<section id="authorship" class="level2">
-<h2 class="anchored" data-anchor-id="authorship">Authorship</h2>
-<p>Add yourself to the authors list in <code>authors.yml</code>.</p>
-</section>
-<section id="final-checks" class="level2">
-<h2 class="anchored" data-anchor-id="final-checks">Final checks</h2>
-<p>When you’re happy with your changes, it’s time to do a final run-through of the notebook.</p>
-<p>Begin with a clean branch (no uncommitted changes). Then run the notebook:</p>
+<section id="steps-before-publishing" class="level2">
+<h2 class="anchored" data-anchor-id="steps-before-publishing">Steps before publishing</h2>
+<p>To publish your revisions, we need you to open a pull request. And in order for us to merge your pull request, here’s what we’ll need from you in addition to your content changes.</p>
+<p>Begin with a clean branch (no uncommitted changes). Then run the notebook from the command line:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> execute</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This command will update <code>index.ipynb</code> with the latest execution results. Importantly, it may generate runtime artifacts in the <code>_freeze/</code> directory.</p>
 <p>Then run <code>make preview</code> to see how the publication is rendering. Verify that your changes appear how you intend them to appear. If not, make the necessary changes and re-run <code>make execute</code>.</p>
 <p>Once happy, commit <code>index.ipynb</code> and all files in the <code>_freeze/</code> directory.</p>
 <p>Finally, submit a pull request and we’ll work with you to merge the changes.</p>
-<p>Once your pull request is approved, we will merge your changes into the main branch. This will trigger a GitHub Action that will automatically update the <a href="https://Arcadia-Science.github.io/2024-paired-token-masking/">hosted URL</a>. Please give a few minutes for the changes to go live.</p>
+<p>Once we approve your pull request, we’ll merge your changes and notify you when they go live at the <a href="https://Arcadia-Science.github.io/2024-paired-token-masking/">hosted URL</a>. Thanks for contributing!</p>
 
 
 </section>
