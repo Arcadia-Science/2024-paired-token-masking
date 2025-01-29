@@ -33,10 +33,10 @@ def visualize_js_div_matrix(matrix_values: np.ndarray, js_div_zmax: float = 0.2)
     """Plots a heatmap of the Jenson-Shannon (JS) divergence.
 
     Args:
-        matrix_values: The square matrix of JS-divergence values.
+        matrix_values: The square matrix of JS divergence values.
         js_div_zmax:
-            The JS-divergence value that corresponds to the highest color value. All
-            JS-divergence values above this will be floored to this color.
+            The JS divergence value that corresponds to the highest color value. All
+            JS divergence values above this will be floored to this color.
     """
     # Compute the matrix values
     size = matrix_values.shape[0]
@@ -50,7 +50,7 @@ def visualize_js_div_matrix(matrix_values: np.ndarray, js_div_zmax: float = 0.2)
         y=indices,
         colorscale=get_plotly_colorscale("sages", reverse=True),
         colorbar=dict(
-            title="JS-divergence",
+            title="JS divergence",
             tick0=0,
             dtick=0.02,
         ),
@@ -86,8 +86,8 @@ def visualize_js_div_matrix(matrix_values: np.ndarray, js_div_zmax: float = 0.2)
                 family="Helvetica Neue",
             ),
             tickfont=dict(
-                family='Courier New',
-            )
+                family="Courier New",
+            ),
         )
     )
 
@@ -98,11 +98,11 @@ def compare_to_contact_map(js_div: np.ndarray, contact_map: np.ndarray, js_div_z
     """Plots a conjoined heatmap of the Jenson-Shannon (JS) divergence and the 3D contact map.
 
     Args:
-        js_div: The square matrix of JS-divergence values.
+        js_div: The square matrix of JS divergence values.
         contact_map: The contact map.
         js_div_zmax:
-            The JS-divergence value that corresponds to the highest color value. All
-            JS-divergence values above this will be floored to this color.
+            The JS divergence value that corresponds to the highest color value. All
+            JS divergence values above this will be floored to this color.
     """
     upper_triangle_mask = np.triu(np.ones_like(contact_map, dtype=bool), k=0)
     lower_triangle_mask = np.tril(np.ones_like(js_div, dtype=bool), k=-1)
@@ -127,7 +127,7 @@ def compare_to_contact_map(js_div: np.ndarray, contact_map: np.ndarray, js_div_z
         go.Heatmap(
             z=z_upper,
             colorscale=get_plotly_colorscale("sages", reverse=True),
-            colorbar=dict(title="JS-divergence", x=1.05),
+            colorbar=dict(title="JS divergence", x=1.05),
             showscale=True,
             zauto=False,
             zmax=js_div_zmax,
@@ -163,8 +163,8 @@ def compare_to_contact_map(js_div: np.ndarray, contact_map: np.ndarray, js_div_z
                 family="Helvetica Neue",
             ),
             tickfont=dict(
-                family='Courier New',
-            )
+                family="Courier New",
+            ),
         )
     )
 
