@@ -79,3 +79,4 @@ code-annotations: hover
 html-table-processing: none
 filters:
   - abstract-section
+demo-title: "A brief syntax demo"
