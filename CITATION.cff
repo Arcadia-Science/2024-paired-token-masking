@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: If you use this software, please cite the associated publication.
+title: Paired residue prediction dependencies in ESM2
+doi: 10.57844/arcadia-f52b-1451
+authors:
+- family-names: Bigge
+  given-names: Brae M.
+  affiliation: Arcadia Science
+  orcid: https://orcid.org/0000-0002-0907-4597
+- family-names: Cheveralls
+  given-names: Keith
+  affiliation: Arcadia Science
+  orcid: https://orcid.org/0000-0002-4157-6087
+- family-names: Kiefl
+  given-names: Evan
+  affiliation: Arcadia Science
+  orcid: https://orcid.org/0000-0002-6473-0921
+preferred-citation:
+  title: Paired residue prediction dependencies in ESM2
+  type: article
+  doi: 10.57844/arcadia-f52b-1451
+  authors:
+  - family-names: Bigge
+    given-names: Brae M.
+    affiliation: Arcadia Science
+    orcid: https://orcid.org/0000-0002-0907-4597
+  - family-names: Kiefl
+    given-names: Evan
+    affiliation: Arcadia Science
+    orcid: https://orcid.org/0000-0002-6473-0921
+  year: 2025
