@@ -82,8 +82,10 @@ def visualize_js_div_matrix(matrix_values: np.ndarray, js_div_zmax: float = 0.2)
 
     fig.update_traces(
         colorbar=dict(
-            titlefont=dict(
-                family="Helvetica Neue",
+            title=dict(
+                font=dict(
+                    family="Helvetica Neue",
+                ),
             ),
             tickfont=dict(
                 family="Courier New",
@@ -159,8 +161,10 @@ def compare_to_contact_map(js_div: np.ndarray, contact_map: np.ndarray, js_div_z
 
     fig.update_traces(
         colorbar=dict(
-            titlefont=dict(
-                family="Helvetica Neue",
+            title=dict(
+                font=dict(
+                    family="Helvetica Neue",
+                ),
             ),
             tickfont=dict(
                 family="Courier New",
