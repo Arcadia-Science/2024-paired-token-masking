@@ -1,36 +1,20 @@
-# For roles, choose from:
-#
-# - conceptualization
-# - formal analysis
-# - investigation
-# - methodology
-# - software
-# - supervision
-# - writing
-# - critical feedback
-# - data curation
-# - editing
-# - project administration
-# - resources
-# - validation
-# - visualization
 authors:
-  - name: Evan Kiefl
-    orcid: 0000-0002-6473-0921
-    roles:
-      - conceptualization
-      - software
-      - formal analysis
-      - methodology
-      - visualization
-      - writing
-      - investigation
-  - name: Brae M. Bigge
-    orcid: 0000-0002-0907-4597
-    roles:
-      - supervision
-  - name: Keith Cheveralls
-    orcid: 0000-0002-4157-6087
-    roles:
-      - validation
-      - critical feedback
+- name: Brae M. Bigge
+  orcid: 0000-0002-0907-4597
+  roles:
+  - Supervision
+- name: Keith Cheveralls
+  orcid: 0000-0002-4157-6087
+  roles:
+  - Critical Feedback
+  - Validation
+- name: Evan Kiefl
+  orcid: 0000-0002-6473-0921
+  roles:
+  - Conceptualization
+  - Formal Analysis
+  - Investigation
+  - Methodology
+  - Software
+  - Visualization
+  - Writing
