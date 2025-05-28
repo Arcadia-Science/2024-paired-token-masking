@@ -24,7 +24,7 @@ git clone https://github.com/{{< var pub.org >}}/{{< var pub.repo >}}.git
 The publication is rendered with [Quarto](https://quarto.org/). If you don't have it installed (check with `quarto --version`), you can install it [here](https://quarto.org/docs/get-started/).
 :::
 
-This repository uses conda to manage the computational and build environment. If you don't have it installed (check with `conda --version`), you can find operating system-specific instructions for installing miniconda [here](https://docs.conda.io/projects/miniconda/en/latest/). After installing, run the following commands to create and activate the environment.
+This repository uses conda to manage the computational and build environment. If you don't have it installed (check with `conda --version`), you can find operating system-specific instructions for installing miniconda [here](https://docs.conda.io/projects/miniconda/en/latest/). After installing, run the following commands to create and activate the environment. If you run into issues creating the environment, you might have success with [micromamba](https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html).
 
 ```bash
 conda env create -n {{< var pub.repo >}} --file env.yml
@@ -35,6 +35,12 @@ Now, install any internal packages in the repository:
 
 ```bash
 pip install -e .
+```
+
+To install getcontacts and py-mfdca:
+
+```bash
+source setup_extras.sh
 ```
 
 And finally, if you plan to submit a pull request, install the [pre-commit](https://pre-commit.com/) hooks:

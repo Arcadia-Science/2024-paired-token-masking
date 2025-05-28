@@ -84,3 +84,6 @@ work/
 /.quarto/
 /_site/
 /*_files/
+
+# getcontacts
+.external/
