@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-set -e
+
 
 # Create .external directory if it doesn't exist
 mkdir -p .external
