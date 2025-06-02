@@ -33,15 +33,3 @@ preview:
 .PHONY: bump-version
 bump-version:
 	python _bump_version.py
-
-.PHONY: install
-install:
-	git submodule update --init --recursive
-	pip install -e .
-	# Add getcontacts to PATH if it's not already there
-	@if ! echo $$PATH | grep -q "$$(pwd)/third_party/getcontacts"; then \
-		echo "Adding getcontacts to PATH..."; \
-		echo 'export PATH=$$PATH:$$(pwd)/third_party/getcontacts' >> ~/.bashrc; \
-		echo "⚠️ Run 'source ~/.bashrc' to activate the change."; \
-		echo "And then reactivate your conda environment"; \
-	fi

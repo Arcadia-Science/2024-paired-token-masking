@@ -15,7 +15,7 @@ To obtain a local copy, you have the option of either *cloning* or *forking* the
 To clone:
 
 ```bash
-git clone https://github.com/{{< var pub.org >}}/{{< var pub.repo >}}.git
+git clone --recurse-submodules https://github.com/{{< var pub.org >}}/{{< var pub.repo >}}.git
 ```
 
 ## Installation
@@ -31,16 +31,10 @@ conda env create -n {{< var pub.repo >}} --file env.yml
 conda activate {{< var pub.repo >}}
 ```
 
-Now, install any internal or external packages in the repository:
+Now, install any internal packages in the repository:
 
 ```bash
-make install
-```
-
-To make getcontacts available in this first session:
-```bash
-source ~/.bashrc
-conda activate {{< var pub.repo >}}
+pip install -e .
 ```
 
 And finally, if you plan to submit a pull request, install the [pre-commit](https://pre-commit.com/) hooks:
