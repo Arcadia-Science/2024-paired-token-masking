@@ -1,6 +1,6 @@
-[submodule ".deps/getcontacts"]
-	path = .deps/getcontacts
+[submodule "third_party/getcontacts"]
+	path = third_party/getcontacts
 	url = https://github.com/getcontacts/getcontacts.git
-[submodule ".deps/py-mfdca"]
-	path = .deps/py-mfdca
+[submodule "third_party/py-mfdca"]
+	path = third_party/py-mfdca
 	url = https://github.com/utdal/py-mfdca.git

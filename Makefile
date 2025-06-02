@@ -38,11 +38,11 @@ bump-version:
 install:
 	git submodule update --init --recursive
 	pip install -e .
-	pip install .deps/py-mfdca
+	pip install third_party/py-mfdca
 	# Add getcontacts to PATH if it's not already there
-	@if ! echo $$PATH | grep -q "$$(pwd)/.deps/getcontacts"; then \
+	@if ! echo $$PATH | grep -q "$$(pwd)/third_party/getcontacts"; then \
 		echo "Adding getcontacts to PATH..."; \
-		echo 'export PATH=$$PATH:$$(pwd)/.deps/getcontacts' >> ~/.bashrc; \
+		echo 'export PATH=$$PATH:$$(pwd)/third_party/getcontacts' >> ~/.bashrc; \
 		echo "⚠️ Run 'source ~/.bashrc' to activate the change."; \
 		echo "And then reactivate your conda environment"; \
 	fi
