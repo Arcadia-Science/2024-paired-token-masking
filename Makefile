@@ -38,7 +38,6 @@ bump-version:
 install:
 	git submodule update --init --recursive
 	pip install -e .
-	pip install third_party/py-mfdca
 	# Add getcontacts to PATH if it's not already there
 	@if ! echo $$PATH | grep -q "$$(pwd)/third_party/getcontacts"; then \
 		echo "Adding getcontacts to PATH..."; \

@@ -22,6 +22,9 @@ indent-width = 4
 # run ruff on jupyter notebooks (this is not enabled by default)
 extend-include = ["*.ipynb"]
 
+# exclude third_party directory
+exclude = ["third_party"]
+
 [tool.ruff.lint.per-file-ignores]
 # ignore star and unused imports
 "__init__.py" = ["F403", "F405"]
