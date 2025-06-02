@@ -37,6 +37,12 @@ Now, install any internal or external packages in the repository:
 make install
 ```
 
+To make getcontacts available in this first session:
+```bash
+source ~/.bashrc
+conda activate {{< var pub.repo >}}
+```
+
 And finally, if you plan to submit a pull request, install the [pre-commit](https://pre-commit.com/) hooks:
 
 ```bash
