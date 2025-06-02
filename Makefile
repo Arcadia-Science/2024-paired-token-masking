@@ -38,7 +38,7 @@ bump-version:
 install:
 	git submodule update --init --recursive
 	pip install -e .deps/py-mfda
-	pip install -e .
+	pip install .deps/py-mfda
 	# Add getcontacts to PATH if it's not already there
 	@if ! echo $$PATH | grep -q "$$(pwd)/.deps/getcontacts"; then \
 		echo "Adding getcontacts to PATH..."; \
