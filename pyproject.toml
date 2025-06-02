@@ -13,6 +13,21 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+"analysis" = ["../third_party/getcontacts/*.py"]
+
+[project.scripts]
+get-contact-bridges = "analysis.scripts:get_contact_bridges"
+get-contact-fingerprints = "analysis.scripts:get_contact_fingerprints"
+get-contact-flare = "analysis.scripts:get_contact_flare"
+get-contact-frequencies = "analysis.scripts:get_contact_frequencies"
+get-contact-singleframe = "analysis.scripts:get_contact_singleframe"
+get-contact-ticc = "analysis.scripts:get_contact_ticc"
+get-contact-trace = "analysis.scripts:get_contact_trace"
+get-dynamic-contacts = "analysis.scripts:get_dynamic_contacts"
+get-resilabels = "analysis.scripts:get_resilabels"
+get-static-contacts = "analysis.scripts:get_static_contacts"
+
 [tool.ruff]
 # The directories to consider when resolving first- vs. third-party imports
 src = ["."]
