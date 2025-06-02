@@ -31,16 +31,10 @@ conda env create -n {{< var pub.repo >}} --file env.yml
 conda activate {{< var pub.repo >}}
 ```
 
-Now, install any internal packages in the repository:
+Now, install any internal or external packages in the repository:
 
 ```bash
-pip install -e .
-```
-
-To install getcontacts and py-mfdca:
-
-```bash
-source setup_extras.sh
+make install
 ```
 
 And finally, if you plan to submit a pull request, install the [pre-commit](https://pre-commit.com/) hooks:

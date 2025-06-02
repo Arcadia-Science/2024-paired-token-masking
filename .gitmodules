@@ -1,0 +1,6 @@
+[submodule ".deps/getcontacts"]
+	path = .deps/getcontacts
+	url = https://github.com/getcontacts/getcontacts.git
+[submodule ".deps/py-mfdca"]
+	path = .deps/py-mfdca
+	url = https://github.com/utdal/py-mfdca.git
