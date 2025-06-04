@@ -12,7 +12,6 @@ All input and output data are git-tracked in the repository.
 
 * `inputs/P00813.fasta`: The amino acid sequence for human adenosine deaminase. Downloaded from the P00813 UniProt entry(https://www.uniprot.org/uniprotkb/P00813/entry).
 * `inputs/P00813.pdb`: The AlphaFold-predicted structure for human adenosine deaminase. Downloaded from the P00813 UniProt entry(https://www.uniprot.org/uniprotkb/P00813/entry).
-* `P00813_alignment.fasta`: The MSA from query sequence of P00813. Obtained from msa server via [boltz](https://github.com/jwohlwend/boltz).
 
 **Outputs**:
 
