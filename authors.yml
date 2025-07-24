@@ -22,3 +22,8 @@ authors:
   - Software
   - Visualization
   - Writing
+- name: Daniel Burns
+  orcid: 0000-0003-0739-2070
+  roles:
+  - Formal Analysis
+  - Critical Feedback

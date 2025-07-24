@@ -19,8 +19,10 @@ website:
     left:
     - text: '{{< iconify qlementine-icons:version-control-16 >}}'
       menu:
-      - text: v01 (latest)
+      - text: v02 (latest)
         href: index.ipynb
+      - text: v01
+        href: index_v01.ipynb
     - text: '{{< iconify nrk:back >}} Back to Pub'
       href: index.ipynb
     right:
@@ -52,17 +54,17 @@ website:
       href: https://twitter.com/arcadiascience
     - icon: github
       href: https://github.com/Arcadia-Science
-  google-analytics: "{{< var pub.google_analytics >}}"
+  google-analytics: '{{< var pub.google_analytics >}}'
   cookie-consent:
     type: implied
     style: simple
 format:
   html:
     include-in-header:
-      - file: assets/logo-animation.html
-      - file: assets/author-reveal.html
-      - file: assets/mini-title.html
-      - file: assets/version-in-title.html
+    - file: assets/logo-animation.html
+    - file: assets/author-reveal.html
+    - file: assets/mini-title.html
+    - file: assets/version-in-title.html
     css: assets/css/main.css
     page-layout: article
     title-block-banner: true
@@ -78,5 +80,5 @@ csl: assets/arcadia.csl
 code-annotations: hover
 html-table-processing: none
 filters:
-  - abstract-section
-demo-title: "A brief syntax demo"
+- abstract-section
+demo-title: A brief syntax demo
