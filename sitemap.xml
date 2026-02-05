@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://Arcadia-Science.github.io/2024-paired-token-masking/index_v01.html</loc>
-    <lastmod>2025-07-30T20:23:43.685Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Arcadia-Science.github.io/2024-paired-token-masking/SETUP.html</loc>
-    <lastmod>2025-07-30T20:23:43.224Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Arcadia-Science.github.io/2024-paired-token-masking/CONTRIBUTING.html</loc>
-    <lastmod>2025-07-30T20:23:43.224Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Arcadia-Science.github.io/2024-paired-token-masking/FAQ.html</loc>
-    <lastmod>2025-07-30T20:23:43.224Z</lastmod>
+    <loc>https://Arcadia-Science.github.io/2024-paired-token-masking/index_v02.html</loc>
+    <lastmod>2026-02-05T22:15:54.102Z</lastmod>
   </url>
   <url>
     <loc>https://Arcadia-Science.github.io/2024-paired-token-masking/index.html</loc>
-    <lastmod>2025-07-30T20:23:43.578Z</lastmod>
+    <lastmod>2026-02-05T22:15:53.974Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Arcadia-Science.github.io/2024-paired-token-masking/FAQ.html</loc>
+    <lastmod>2026-02-05T22:15:53.497Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Arcadia-Science.github.io/2024-paired-token-masking/CONTRIBUTING.html</loc>
+    <lastmod>2026-02-05T22:15:53.497Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Arcadia-Science.github.io/2024-paired-token-masking/SETUP.html</loc>
+    <lastmod>2026-02-05T22:15:53.497Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Arcadia-Science.github.io/2024-paired-token-masking/index_v01.html</loc>
+    <lastmod>2026-02-05T22:15:54.078Z</lastmod>
   </url>
 </urlset>
